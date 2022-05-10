@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Cafe Vesuvius App</string>
+    <string name="Reservations_Main">Reservations</string>
+    <string name="Reservations_Name">Name:</string>
+    <string name="Reservations_Phone">Phone:</string>
+    <string name="Reservations_NumberofPeople">Number of people:</string>
+    <string name="Reservations_ReserveTables">Reserve Tables</string>
 </resources>
