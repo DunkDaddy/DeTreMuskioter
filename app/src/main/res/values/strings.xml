@@ -3,4 +3,5 @@
     <string name="login_name">Login</string>
     <string name="login_user">UserName</string>
     <string name="login_Pass">Password</string>
+    <string name="LoginMain_SignOut">Sign Out</string>
 </resources>

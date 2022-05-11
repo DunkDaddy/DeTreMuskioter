@@ -6,16 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class Login extends AppCompatActivity {
+public class Login_Main extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_main);
     }
 
-    public void login(View view){
-        Intent intent = new Intent(Login.this, Login_Main.class);
+    public void signOut(View view){
+        Intent intent = new Intent(Login_Main.this, MainActivity.class);
         startActivity(intent);
     }
 }

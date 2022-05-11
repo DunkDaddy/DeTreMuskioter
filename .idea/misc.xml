@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/jonas/OneDrive/Dokumenter/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_login.xml" value="0.22333333333333336" />
-        <entry key="..\:/Users/jonas/OneDrive/Dokumenter/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_main.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_all_orders.xml" value="0.33" />
+        <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_login_main.xml" value="0.75" />
+        <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_main.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_menu.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_order.xml" value="0.25" />
+        <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_reservations.xml" value="0.38697916666666665" />
       </map>
     </option>
   </component>
