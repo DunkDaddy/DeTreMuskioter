@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Cafe Vesuvius App</string>
+    <string name="Order">Order:</string>
+    <string name="AllOrders_Main">All Orders</string>
 </resources>
