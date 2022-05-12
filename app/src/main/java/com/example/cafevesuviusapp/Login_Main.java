@@ -49,5 +49,10 @@ public class Login_Main extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void gotoKitchenOrderBugaloo(View view){
+        Intent intent = new Intent(Login_Main.this, Kitchen_Order_Two.class);
+        startActivity(intent);
+    }
+
 
 }

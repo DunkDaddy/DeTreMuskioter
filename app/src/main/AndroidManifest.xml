@@ -40,7 +40,12 @@
             android:name=".Order"
             android:exported="false"
             android:parentActivityName=".Login_Main" />
-        <activity android:name=".Tables"
+        <activity
+            android:name=".Tables"
+            android:exported="false"
+            android:parentActivityName=".Login_Main"/>
+        <activity
+            android:name=".Kitchen_Order_Two"
             android:exported="false"
             android:parentActivityName=".Login_Main"/>
         <activity
