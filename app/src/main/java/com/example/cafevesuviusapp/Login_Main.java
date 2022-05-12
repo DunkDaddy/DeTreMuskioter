@@ -45,7 +45,8 @@ public class Login_Main extends AppCompatActivity {
     }
 
     public void gotoTable(View view){
-        Intent intent = new Intent(Login_Main.this, )
+        Intent intent = new Intent(Login_Main.this, Tables.class);
+        startActivity(intent);
     }
 
 
