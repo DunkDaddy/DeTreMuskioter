@@ -14,4 +14,8 @@
     <string name="Menu_Drinks">Drinks</string>
     <string name="Order">Order:</string>
     <string name="AllOrders_Main">All Orders</string>
+    <string name="Reservations_Name">Name:</string>
+    <string name="Reservations_Phone">Phone:</string>
+    <string name="Reservations_NumberofPeople">Number of people:</string>
+    <string name="Reservations_ReserveTables">Reserve Tables</string>
 </resources>
