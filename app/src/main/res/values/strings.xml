@@ -1,11 +1,7 @@
 <resources>
     <string name="app_name">Cafe Vesuvius App</string>
-    <string name="Menu_Main">Menu</string>
-    <string name="Menu_Appetisers">Appetisers</string>
-    <string name="Menu_Salad">Salad</string>
-    <string name="Menu_Sandwich">Sandwich</string>
-    <string name="Menu_Burger">Burger</string>
-    <string name="Menu_Pasta">Pasta</string>
-    <string name="Menu_KidsMenu">Kids Menu</string>
-    <string name="Menu_Drinks">Drinks</string>
+    <string name="login_name">Login</string>
+    <string name="login_user">UserName</string>
+    <string name="login_Pass">Password</string>
+    <string name="LoginMain_SignOut">Sign Out</string>
 </resources>
