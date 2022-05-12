@@ -12,5 +12,6 @@
     <string name="Menu_Pasta">Pasta</string>
     <string name="Menu_KidsMenu">Kids Menu</string>
     <string name="Menu_Drinks">Drinks</string>
-    
+    <string name="Order">Order:</string>
+    <string name="AllOrders_Main">All Orders</string>
 </resources>
