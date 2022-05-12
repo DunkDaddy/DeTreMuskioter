@@ -18,4 +18,29 @@ public class Login_Main extends AppCompatActivity {
         Intent intent = new Intent(Login_Main.this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void gotoLogistic(View view){
+        Intent intent = new Intent(Login_Main.this, Logistic.class);
+        startActivity(intent);
+    }
+
+    public void gotoAllOrders(View view){
+        Intent intent = new Intent(Login_Main.this, AllOrders.class);
+        startActivity(intent);
+    }
+
+    public void gotoMenu(View view){
+        Intent intent = new Intent(Login_Main.this, Menu.class);
+        startActivity(intent);
+    }
+
+    public void gotoOrder(View view){
+        Intent intent = new Intent(Login_Main.this, Order.class);
+        startActivity(intent);
+    }
+
+    public void gotoReservations(View view){
+        Intent intent = new Intent(Login_Main.this, Reservations.class);
+        startActivity(intent);
+    }
 }
