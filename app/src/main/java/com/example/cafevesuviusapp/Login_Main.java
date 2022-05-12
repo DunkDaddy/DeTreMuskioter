@@ -44,5 +44,9 @@ public class Login_Main extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void gotoTable(View view){
+        Intent intent = new Intent(Login_Main.this, )
+    }
+
 
 }
