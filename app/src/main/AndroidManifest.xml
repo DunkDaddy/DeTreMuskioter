@@ -21,6 +21,26 @@
             android:exported="false"
             android:parentActivityName=".MainActivity"/>
         <activity
+            android:name=".Reservations"
+            android:exported="false"
+            android:parentActivityName=".Login_Main"/>
+        <activity
+            android:name=".Menu"
+            android:exported="false"
+            android:parentActivityName=".Login_Main"/>
+        <activity
+            android:name=".AllOrders"
+            android:exported="false"
+            android:parentActivityName=".Login_Main"/>
+        <activity
+            android:name=".Logistic"
+            android:exported="false"
+            android:parentActivityName=".Login_Main"/>
+        <activity
+            android:name=".Order"
+            android:exported="false"
+            android:parentActivityName=".Login_Main"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
