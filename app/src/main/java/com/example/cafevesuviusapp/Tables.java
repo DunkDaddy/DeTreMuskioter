@@ -94,7 +94,7 @@ public class Tables extends AppCompatActivity {
         //TODO code for retrieving table from Database
         String[] S = {"James"};
         arr = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, S);
-
+        listTest.setAdapter(arr);
 
     }
 
