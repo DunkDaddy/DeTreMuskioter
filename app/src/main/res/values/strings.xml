@@ -19,4 +19,9 @@
     <string name="Reservations_Phone">Phone:</string>
     <string name="Reservations_NumberofPeople">Number of people:</string>
     <string name="Reservations_ReserveTables">Reserve Tables</string>
+    <string-array name="TableLocations">
+        <item>Bygning 1</item>
+        <item>Bygning 2 (Under konstruktion)</item>
+        <item>Udendørs</item>
+    </string-array>
 </resources>
