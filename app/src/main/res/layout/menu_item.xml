@@ -1,41 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    style="@style/header.Horizontal">
 
     <TextView
         android:id="@+id/Dish_Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="13dp"
-        android:textSize="25dp"
-        android:textStyle="bold" />
-
+        style="@style/menu_item.Name"/>
     <TextView
         android:id="@+id/Dish_Description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Dish_Name"
-        android:layout_marginStart="-69dp"
-        android:layout_marginTop="9dp"
-        android:layout_toEndOf="@+id/Dish_Name"
-        android:textSize="20dp"
-        android:textStyle="normal" />
-
+        style="@style/menu_item.Description"/>
     <TextView
         android:id="@+id/Dish_Price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Dish_Description"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="14dp"
-        android:layout_toEndOf="@+id/Dish_Description"
-        android:textSize="15dp"
-        android:textStyle="normal" />
-
+        style="@style/menu_item.Price"/>
 </RelativeLayout>

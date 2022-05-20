@@ -3,7 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/HFGF/AndroidStudioProjects/DeTreMuskioter/app/src/main/res/layout/activity_menu.xml" value="0.1" />
+        <entry key="..\:/Users/HFGF/AndroidStudioProjects/DeTreMuskioter/app/src/main/res/layout/activity_all_orders.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/HFGF/AndroidStudioProjects/DeTreMuskioter/app/src/main/res/layout/activity_kitchen_order_two.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/HFGF/AndroidStudioProjects/DeTreMuskioter/app/src/main/res/layout/activity_login.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/HFGF/AndroidStudioProjects/DeTreMuskioter/app/src/main/res/layout/activity_logistic.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/HFGF/AndroidStudioProjects/DeTreMuskioter/app/src/main/res/layout/activity_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/HFGF/AndroidStudioProjects/DeTreMuskioter/app/src/main/res/layout/activity_order.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/HFGF/AndroidStudioProjects/DeTreMuskioter/app/src/main/res/layout/activity_reservations.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/HFGF/AndroidStudioProjects/DeTreMuskioter/app/src/main/res/layout/activity_tables.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/HFGF/AndroidStudioProjects/DeTreMuskioter/app/src/main/res/layout/menu_item.xml" value="0.25" />
         <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_all_orders.xml" value="0.2110148514851485" />
         <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_kitchen_order_two.xml" value="0.2110148514851485" />
@@ -13,7 +20,7 @@
         <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_menu.xml" value="0.2110148514851485" />
         <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_order.xml" value="0.3522873022659256" />
-        <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_reservations.xml" value="0.25" />
+        <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_reservations.xml" value="0.3522873022659256" />
         <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/activity_tables.xml" value="0.36363636363636365" />
         <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/kitchen_order.xml" value="0.16788916055419723" />
         <entry key="..\:/Users/HFGF/Documents/GitHub/DeTreMuskioter/app/src/main/res/layout/table.xml" value="0.3522873022659256" />
@@ -25,12 +32,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.36363636363636365" />
-      </ProjectState>
-    </option>
   </component>
 </project>
