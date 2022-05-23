@@ -8,8 +8,7 @@
 
     <Button
         android:id="@+id/button"
-        style="@style/menu_button"
-        android:text="@string/Menu_Appetisers"
+        style="@style/button.menu.appetizers"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
     <TextView
@@ -22,32 +21,27 @@
         />
     <Button
         android:id="@+id/button2"
-        style="@style/menu_button"
-        android:text="@string/Menu_Burger"
+        style="@style/button.menu.burger"
         app:layout_constraintStart_toEndOf="@+id/button"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
     <Button
         android:id="@+id/button3"
-        style="@style/menu_button"
-        android:text="@string/Menu_Sandwich"
+        style="@style/button.menu.sandwich"
         app:layout_constraintStart_toEndOf="@+id/button2"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
     <Button
         android:id="@+id/button5"
-        style="@style/menu_button"
-        android:text="@string/Menu_Pasta"
+        style="@style/button.menu.pasta"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
     <Button
         android:id="@+id/button6"
-        style="@style/menu_button"
-        android:text="@string/Menu_Salad"
+        style="@style/button.menu.salad"
         app:layout_constraintStart_toEndOf="@+id/button5"
         app:layout_constraintTop_toBottomOf="@+id/button3" />
     <Button
         android:id="@+id/button7"
-        style="@style/menu_button"
-        android:text="@string/Menu_Drinks"
+        style="@style/button.menu.drinks"
         app:layout_constraintStart_toEndOf="@id/button6"
         app:layout_constraintTop_toBottomOf="@id/button3" />
 

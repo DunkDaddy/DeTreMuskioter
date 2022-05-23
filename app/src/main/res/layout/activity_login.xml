@@ -2,17 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/header"
     tools:context=".Login">
 
     <TextView
         android:id="@+id/Login_MainTXT"
-        android:layout_width="73dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="60dp"
-        android:text="@string/login_name"
-        android:textSize="24sp"
+        style="@style/login_main_Txt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,11 +15,7 @@
 
     <TextView
         android:id="@+id/Login_UserTXT"
-        android:layout_width="128dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="36dp"
-        android:text="@string/login_user"
-        android:textSize="24sp"
+        style="@style/login_user_Txt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,48 +23,29 @@
 
     <EditText
         android:id="@+id/Login_UserInp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/login_user"
-        android:textSize="24sp"
+        style="@style/login_Txt.userName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Login_UserTXT" />
 
     <TextView
         android:id="@+id/Login_PassTXT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:text="@string/login_Pass"
-        android:textSize="24sp"
+        style="@style/login_Txt.password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Login_UserInp" />
 
     <EditText
         android:id="@+id/LoginPassInp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:text="@string/login_Pass"
-        android:textSize="24sp"
+        style="@style/login_Txt.password_Edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Login_PassTXT" />
 
     <Button
         android:id="@+id/GOTO_LoginMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        style="@style/button.login"
         android:onClick="login"
-        android:text="@string/login_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
