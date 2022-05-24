@@ -5,10 +5,28 @@ import android.widget.TextView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.os.Bundle;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.cafevesuviusapp.Classes.MenuItem_Class;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.util.List;
 
 public class Menu extends AppCompatActivity {
 
-    RelativeLayout appetizers, burger, Sandwich, pasta, salad;
+    private String server_url = "http://127.0.0.1:8000/menuitems-list/?format=json";
+    RequestQueue requestQueue;
+    List<MenuItem_Class> menuList;
+    RelativeLayout appetizers, burger, Sandwich, pasta, salad, drink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,19 +37,63 @@ public class Menu extends AppCompatActivity {
         Sandwich = findViewById(R.id.Sandwich);
         pasta = findViewById(R.id.Pasta);
         salad = findViewById(R.id.Salad);
+        drink = findViewById(R.id.Drinks);
 
-        //TODO: Need for loop with data from RESTAPI, and then a Switch for each Category of menu items
-        View row = getLayoutInflater().inflate(R.layout.menu_item, null);
-        appetizers.addView(row);
+        requestQueue = Volley.newRequestQueue(this);
+        getData();
+        for (MenuItem_Class  menuItem : menuList) {
+            View row = getLayoutInflater().inflate(R.layout.menu_item, null);
+            switch (menuItem.category_id)
+            {
+                case 1://Burger
+                    burger.addView(row);
+                    break;
+                case 2://Drink
+                    drink.addView(row);
+                    break;
+                default:
+                    break;
+            }
+            TextView name, description, price;
 
-        TextView dishName = row.findViewById(R.id.Dish_Name);
-        dishName.setText("Name");
+            name = row.findViewById(R.id.Dish_Name);
+            name.setText(menuItem.name);
 
-        TextView dishDescription = row.findViewById(R.id.Dish_Description);
-        dishDescription.setText("Description");
+            description = row.findViewById(R.id.Dish_Description);
+            description.setText(menuItem.description);
 
-        TextView dishPrice = row.findViewById(R.id.Dish_Price);
-        dishPrice.setText("price");
+            price = row.findViewById(R.id.Dish_Price);
+            price.setText(menuItem.price.toString());
+        }
 
+    }
+
+    private void getData()
+    {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, server_url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONArray jsonArray = response;
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int id = jsonObject.getInt("id");
+                        String name = jsonObject.getString("name");
+                        Double price = jsonObject.getDouble("price");
+                        String description = jsonObject.getString("description");
+                        int categoryId = jsonObject.getInt("categoryId");
+                        menuList.add(new MenuItem_Class(id, name, price, description, categoryId));
+                    }
+                } catch (Exception w) {
+                    Toast.makeText(Menu.this, w.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Menu.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
     }
 }
