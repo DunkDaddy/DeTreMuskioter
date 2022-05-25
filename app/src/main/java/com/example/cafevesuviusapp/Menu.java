@@ -1,5 +1,6 @@
 package com.example.cafevesuviusapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.TextView;
 import android.view.View;
@@ -26,13 +27,14 @@ public class Menu extends AppCompatActivity {
 
     private String server_url = "http://10.0.2.2:8000/menuitems-list/?format=json";
     RequestQueue requestQueue;
-    List<MenuItem_Class> menuList = new ArrayList<MenuItem_Class>();
+    List<MenuItem_Class> menuList;
     RelativeLayout appetizers, burger, Sandwich, pasta, salad, drink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        menuList = new ArrayList<>();
         appetizers = findViewById(R.id.Appetizers);
         burger = findViewById(R.id.Burger);
         Sandwich = findViewById(R.id.Sandwich);
@@ -42,37 +44,10 @@ public class Menu extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
         getData();
-        for (MenuItem_Class menuItem : menuList) {
-            View row = getLayoutInflater().inflate(R.layout.menu_item, null);
-            switch (menuItem.category_id)
-            {
-                //Burger
-                case 1:
-                    burger.addView(row);
-                    break;
-                //drink
-                case 2:
-                    drink.addView(row);
-                    break;
-                default:
-                    break;
-            }
-            TextView name, description, price;
 
-            name = row.findViewById(R.id.Dish_Name);
-            name.setText(menuItem.name);
-
-            description = row.findViewById(R.id.Dish_Description);
-            description.setText(menuItem.description);
-
-            price = row.findViewById(R.id.Dish_Price);
-            price.setText(menuItem.price.toString());
-        }
 
     }
-
-    private void getData()
-    {
+    private void getData() {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, server_url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -80,10 +55,36 @@ public class Menu extends AppCompatActivity {
                 try {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        int id = jsonObject.getInt("id");
+                        View row = getLayoutInflater().inflate(R.layout.menu_item, null);
+                        switch (jsonObject.getInt("categoryId"))
+                        {
+                            //Burger
+                            case 1:
+                                burger.addView(row);
+                                break;
+                            //drink
+                            case 2:
+                                drink.addView(row);
+                                break;
+                            default:
+                                break;
+                        }
                         String name = jsonObject.getString("name");
                         Double price = jsonObject.getDouble("price");
                         String description = jsonObject.getString("description");
+
+                        TextView nameView, descriptionView, priceView;
+
+                        nameView = row.findViewById(R.id.Dish_Name);
+                        nameView.setText(name);
+
+                        descriptionView = row.findViewById(R.id.Dish_Description);
+                        descriptionView.setText(description);
+
+                        priceView = row.findViewById(R.id.Dish_Price);
+                        priceView.setText(price+"");
+
+                        int id = jsonObject.getInt("id");
                         int categoryId = jsonObject.getInt("categoryId");
                         menuList.add(new MenuItem_Class(id, name, price, description, categoryId));
                     }
