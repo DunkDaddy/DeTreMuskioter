@@ -72,7 +72,7 @@
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_marginStart">20dp</item>
         <item name="android:layout_marginTop">13dp</item>
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
     <style name="menu_item.Description">
@@ -80,7 +80,7 @@
         <item name="android:layout_marginStart">-69dp</item>
         <item name="android:layout_marginTop">9dp</item>
         <item name="android:layout_toEndOf">@+id/Dish_Name</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textStyle">normal</item>
     </style>
     <style name="menu_item.Price">
@@ -88,7 +88,7 @@
         <item name="android:layout_marginStart">2dp</item>
         <item name="android:layout_marginTop">14dp</item>
         <item name="android:layout_toEndOf">@+id/Dish_Description</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textStyle">normal</item>
     </style>
     <style name="login_main_Txt">

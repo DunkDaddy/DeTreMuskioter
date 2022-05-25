@@ -5,11 +5,16 @@
 
     <TextView
         android:id="@+id/Dish_Name"
-        style="@style/menu_item.Name"/>
+        style="@style/menu_item.Name"
+        android:text="@string/Menu_Burger" />
+
     <TextView
         android:id="@+id/Dish_Description"
-        style="@style/menu_item.Description"/>
+        style="@style/menu_item.Description"
+        android:text="@string/Menu_Burger" />
+
     <TextView
         android:id="@+id/Dish_Price"
-        style="@style/menu_item.Price"/>
+        style="@style/menu_item.Price"
+        android:text="@string/Menu_Burger" />
 </RelativeLayout>

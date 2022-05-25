@@ -47,52 +47,51 @@
 
     <ScrollView
         style="@style/menu_scrollView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6">
+        app:layout_constraintTop_toBottomOf="@+id/button6"
+        android:layout_marginTop="20dp"
+        >
 
         <LinearLayout style="@style/menu_linearLayout">
 
             <TextView
                 style="@style/menu_scroll_textView"
                 android:text="@string/Menu_Appetisers" />
-            <RelativeLayout
+            <ListView
                 android:id="@+id/Appetizers"
                 style="@style/menu_scroll_RelativeLayout"/>
             <View style="@style/menu_scroll_View" />
             <TextView
                 style="@style/menu_scroll_textView"
                 android:text="@string/Menu_Burger" />
-            <RelativeLayout
+            <ListView
                 android:id="@+id/Burger"
                 style="@style/menu_scroll_RelativeLayout"/>
             <View style="@style/menu_scroll_View" />
             <TextView
                 style="@style/menu_scroll_textView"
                 android:text="@string/Menu_Sandwich" />
-            <RelativeLayout
+            <ListView
                 android:id="@+id/Sandwich"
                 style="@style/menu_scroll_RelativeLayout"/>
             <View style="@style/menu_scroll_View" />
             <TextView
                 style="@style/menu_scroll_textView"
                 android:text="@string/Menu_Pasta" />
-            <RelativeLayout
+            <ListView
                 android:id="@+id/Pasta"
                 style="@style/menu_scroll_RelativeLayout"/>
             <View style="@style/menu_scroll_View" />
             <TextView
                 style="@style/menu_scroll_textView"
                 android:text="@string/Menu_Salad" />
-            <RelativeLayout
+            <ListView
                 android:id="@+id/Salad"
                 style="@style/menu_scroll_RelativeLayout"/>
             <View style="@style/menu_scroll_View" />
             <TextView
                 style="@style/menu_scroll_textView"
                 android:text="@string/Menu_Drinks" />
-            <RelativeLayout
+            <ListView
                 android:id="@+id/Drinks"
                 style="@style/menu_scroll_RelativeLayout"/>
         </LinearLayout>
