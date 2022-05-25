@@ -19,13 +19,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Menu extends AppCompatActivity {
 
-    private String server_url = "http://127.0.0.1:8000/menuitems-list/?format=json";
+    private String server_url = "http://10.0.2.2:8000/menuitems-list/?format=json";
     RequestQueue requestQueue;
-    List<MenuItem_Class> menuList;
+    List<MenuItem_Class> menuList = new ArrayList<MenuItem_Class>();
     RelativeLayout appetizers, burger, Sandwich, pasta, salad, drink;
 
     @Override
@@ -41,14 +42,16 @@ public class Menu extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
         getData();
-        for (MenuItem_Class  menuItem : menuList) {
+        for (MenuItem_Class menuItem : menuList) {
             View row = getLayoutInflater().inflate(R.layout.menu_item, null);
             switch (menuItem.category_id)
             {
-                case 1://Burger
+                //Burger
+                case 1:
                     burger.addView(row);
                     break;
-                case 2://Drink
+                //drink
+                case 2:
                     drink.addView(row);
                     break;
                 default:
