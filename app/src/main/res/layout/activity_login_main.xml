@@ -2,87 +2,62 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/header"
     tools:context=".Login_Main">
 
     <Button
         android:id="@+id/MainMenu_SignOutBTN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/main_page.signOut"
         android:onClick="signOut"
-        android:text="@string/LoginMain_SignOut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/All_Order_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="148dp"
+        style="@style/main_page.all_order"
         android:onClick="gotoAllOrders"
-        android:text="All Orders"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Total_Sum_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/main_page.today_sum"
         android:onClick="gotoLogistic"
-        android:text="Today Sum"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Menu_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        style="@style/main_page.menu"
         android:onClick="gotoMenu"
-        android:text="Menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Order_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
-        android:layout_marginEnd="156dp"
+        style="@style/main_page.orders"
         android:onClick="gotoOrder"
-        android:text="Orders"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Reservation_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
+        style="@style/main_page.reservation"
         android:onClick="gotoReservations"
-        android:text="Reservation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Kitchen_Orders_Butoon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
-        android:layout_marginEnd="136dp"
+        style="@style/main_page.kitchenOrders"
         android:onClick="gotoKitchenOrderBugaloo"
-        android:text="Kitchen Orders"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/Table_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
+        style="@style/main_page.tables"
         android:onClick="gotoTable"
-        android:text="Tables"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/MainMenu_SignOutBTN" />
 </androidx.constraintlayout.widget.ConstraintLayout>

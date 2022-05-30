@@ -16,12 +16,27 @@
     <string name="AllOrders_Main">All Orders</string>
     <string name="Reservation_Main">Reservation</string>
     <string name="Reservations_Name">Name:</string>
+    <string name="Reservations_Name_Hint">Name</string>
     <string name="Reservations_Phone">Phone:</string>
+    <string name="Reservations_Phone_Hint">Phone</string>
     <string name="Reservations_NumberofPeople">Number of people:</string>
+    <string name="Reservations_NumberofPeople_Hint">Number of people</string>
     <string name="Reservations_ReserveTables">Reserve Tables</string>
     <string-array name="TableLocations">
         <item>Bygning 1</item>
         <item>Bygning 2 (Under konstruktion)</item>
         <item>Udendørs</item>
     </string-array>
+    <string name="loginMain_allOrders">All Orders</string>
+    <string name="loginMain_todaySums">Today Sum</string>
+    <string name="loginMain_orders">Orders</string>
+    <string name="loginMain_reservation">Reservation</string>
+    <string name="loginMain_kitchenOrders">Kitchen Orders</string>
+    <string name="loginMain_tables">Tables</string>
+    <string name="kitchenOrder">Order</string>
+    <string name="note">Note</string>
+    <string name="textView">TextView</string>
+    <string name="dailySale">Days Sale</string>
+    <string name="waiterDailySale">Waiter Day Sale</string>
+    <string name="totalIncome">Total Income</string>
 </resources>
