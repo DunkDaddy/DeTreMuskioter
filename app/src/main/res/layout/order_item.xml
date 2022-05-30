@@ -5,11 +5,11 @@
 
     <TextView
         android:id="@+id/order_dish_name"
-        style="@style/order_item.dishName"
+        style="@style/order_item"
         />
     <Button
         android:id="@+id/order_dish_button"
-        style="@style/button.order_item"
+        style="@style/button_order_item"
         />
 
 </LinearLayout>

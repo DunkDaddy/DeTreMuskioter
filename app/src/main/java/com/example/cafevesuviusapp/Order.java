@@ -2,6 +2,9 @@ package com.example.cafevesuviusapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AlertDialog;
+
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -36,9 +39,9 @@ public class Order extends AppCompatActivity {
     private String orderUrl = "";
 
     RequestQueue requestQueue;
-    List<MenuItem_Class> burgerMenu, appetizerMenu, sandwichMenu, pastaMenu, saladMenu, drinkMenu;
-    OrderAdapter burgerAdapter, appetizersAdapter, sandwichAdapter, pastaAdapter, saladAdapter, drinkAdapter;
-    ListView burger, appetizers, Sandwich, pasta, salad, drink;
+    List<MenuItem_Class> orderMenuItems;
+    OrderAdapter orderAdapter;
+    ListView orderMenu;
 
     Order_Class newOrder;
 
@@ -47,39 +50,14 @@ public class Order extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
         newOrder  = new Order_Class();
-        burgerMenu = new ArrayList<>();
-        appetizerMenu = new ArrayList<>();
-        sandwichMenu = new ArrayList<>();
-        pastaMenu = new ArrayList<>();
-        saladMenu = new ArrayList<>();
-        drinkMenu = new ArrayList<>();
-        appetizers = findViewById(R.id.order_menu);
-        burger = findViewById(R.id.order_menu);
-        Sandwich = findViewById(R.id.order_menu);
-        pasta = findViewById(R.id.order_menu);
-        salad = findViewById(R.id.order_menu);
-        drink = findViewById(R.id.order_menu);
+        orderMenuItems = new ArrayList<>();
+        orderMenu = findViewById(R.id.order_menu);
 
         requestQueue = Volley.newRequestQueue(this);
         getMenuData();
-        //Appetizers
-        appetizersAdapter = new OrderAdapter(this, R.layout.order_item, appetizerMenu);
-        appetizers.setAdapter(appetizersAdapter);
-        //Burger
-        burgerAdapter = new OrderAdapter(this, R.layout.order_item, burgerMenu);
-        burger.setAdapter(burgerAdapter);
-        //Sandwich
-        sandwichAdapter = new OrderAdapter(this, R.layout.order_item, sandwichMenu);
-        Sandwich.setAdapter(sandwichAdapter);
-        //Pasta
-        pastaAdapter = new OrderAdapter(this, R.layout.order_item, pastaMenu);
-        pasta.setAdapter(pastaAdapter);
-        //Salad
-        saladAdapter = new OrderAdapter(this, R.layout.order_item, saladMenu);
-        salad.setAdapter(saladAdapter);
-        //Drink
-        drinkAdapter = new OrderAdapter(this, R.layout.order_item, drinkMenu);
-        drink.setAdapter(drinkAdapter);
+        orderAdapter = new OrderAdapter(this, R.layout.order_item, orderMenuItems);
+        orderMenu.setAdapter(orderAdapter);
+
     }
 
     private void getMenuData() {
@@ -97,38 +75,9 @@ public class Order extends AppCompatActivity {
                         int id = jsonObject.getInt("id");
                         int categoryId = jsonObject.getInt("categoryId");
                         MenuItem_Class item = new MenuItem_Class(id, name, price, description, categoryId);
-
-                        switch (categoryId)
-                        {
-
-                            //Burger
-                            case 1:
-                                burgerMenu.add(item);
-                                break;
-                            //Drink
-                            case 2:
-                                drinkMenu.add(item);
-                                break;
-                            //Appetizer
-                            case 3:
-                                appetizerMenu.add(item);
-                                break;
-                            //Sandwich
-                            case 4:
-                                sandwichMenu.add(item);
-                                break;
-                            //Pasta
-                            case 5:
-                                pastaMenu.add(item);
-                                break;
-                            //Salad
-                            case 6:
-                                saladMenu.add(item);
-                                break;
-                            default:
-                                break;
-                        }
+                        orderMenuItems.add(item);
                     }
+                    orderAdapter.notifyDataSetChanged();
 
 
                 } catch (Exception w) {
@@ -142,14 +91,5 @@ public class Order extends AppCompatActivity {
             }
         });
         requestQueue.add(jsonArrayRequest);
-    }
-    public void onClick(View view) {
-        if (appetizersAdapter.menuItemsList.get(1).category_id == 2)
-        {
-            newOrder.assign_Drink(new MenuItem_Class(appetizersAdapter.menuItemsList.get(1).getID(), menuItem.name, menuItem.price, menuItem.description, menuItem.category_id));
-        }
-        else {
-            newOrder.assign_Dish(new MenuItem_Class(menuItem.getID(), menuItem.name, menuItem.price, menuItem.description, menuItem.category_id));
-        }
     }
 }

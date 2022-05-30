@@ -177,8 +177,8 @@
         <item name="android:textSize">24sp</item>
     </style>
     <style name="orders_scrollView">
-        <item name="android:layout_width">407dp</item>
-        <item name="android:layout_height">653dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="linearLayout">
         <item name="android:layout_width">match_parent</item>
@@ -325,16 +325,19 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginLeft">5dp</item>
-    </style>
-    <style name="order_item.dishName">
         <item name="android:text">Test</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
-    <style name="button.order_item">
+    <style name="button_order_item">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:text">add to order</item>
-
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginLeft">60dp</item>
+    </style>
+    <style name="linearLayout2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 </resources>
