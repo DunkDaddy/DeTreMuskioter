@@ -27,7 +27,7 @@ import java.util.List;
 
 public class Menu extends AppCompatActivity {
 
-    private String server_url = "http://10.0.2.2:8000/menuitems-list/?format=json";
+    private String server_url = "http://10.0.2.2:8000/tables-list/?format=json";
     RequestQueue requestQueue;
     List<MenuItem_Class> burgerMenu, appetizerMenu, sandwichMenu, pastaMenu, saladMenu, drinkMenu;
     MenuAdapter burgerAdapter, appetizersAdapter, sandwichAdapter, pastaAdapter, saladAdapter, drinkAdapter;

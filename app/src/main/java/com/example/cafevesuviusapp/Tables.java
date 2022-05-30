@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.LocaleList;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,15 +16,40 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.android.volley.toolbox.Volley;
+import com.example.cafevesuviusapp.Classes.Location_Class;
 import com.example.cafevesuviusapp.Classes.Tables_Class;
 import com.google.android.material.snackbar.Snackbar;
 
 
 public class Tables extends AppCompatActivity {
 
+
     String number;
     int variable;
+    private String table_url = "http://10.0.2.2:8000/menuitems-list/?format=json";
+    private String locations_url = "http://10.0.2.2:8000/location-list/?format=json";
+    ArrayList<String> locations = new ArrayList<>();
+    RequestQueue requestQueue;
+    String[] s;
+    ArrayList<Location_Class> locationList = new ArrayList<>();
+    ArrayList<Tables_Class> table = new ArrayList<>();
+
 
     public void workaround(String a){
         number = a;
@@ -41,6 +67,7 @@ public class Tables extends AppCompatActivity {
             test.setText("Number of People: " + number);
         }
 
+        requestQueue = Volley.newRequestQueue(this);
 
         //Code for reacting to clicked Item in Listview
         ListView lv = (ListView) findViewById(R.id.LisviewTest);
@@ -60,7 +87,18 @@ public class Tables extends AppCompatActivity {
 
         //For dropdown Menu with table locations.
         Spinner tableSpinner = (Spinner) findViewById(R.id.planets_spinner3);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.TableLocations, android.R.layout.simple_spinner_item);
+        locationList = getLocationData();
+
+        for (int i = 0; i < locationList.size(); i++){
+            Location_Class location = new Location_Class();
+            location = locationList.get(i);
+            locations.add(location.placement);
+            moveTable(locationList.get(i).placement);
+        if (locationList.size() == 0){
+
+            }
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tableSpinner.setAdapter(adapter);
         //TODO function to retrieve locations
@@ -92,7 +130,7 @@ public class Tables extends AppCompatActivity {
         ListView listTest = (ListView) findViewById(R.id.LisviewTest);
         ArrayAdapter<String> arr;
         //TODO code for retrieving table from Database
-        String[] S = {"James"};
+        String[] S = {"new", "pew"};
         arr = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, S);
         listTest.setAdapter(arr);
 
@@ -158,6 +196,34 @@ public class Tables extends AppCompatActivity {
         builder.create().show();
 
 
+    }
+
+    //TODO--------------------------------------------
+    private ArrayList<Location_Class> getLocationData(){
+        ArrayList<Location_Class> locationData = new ArrayList<>();
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, locations_url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONArray jsonArray = response;
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int id = jsonObject.getInt("id");
+                        String name = jsonObject.getString("name");
+                        locationData.add(new Location_Class(id, name));
+                    }
+                } catch (Exception w) {
+                    Toast.makeText(Tables.this, w.getMessage(), Toast.LENGTH_LONG);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Tables.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+        return locationData;
     }
 
 
