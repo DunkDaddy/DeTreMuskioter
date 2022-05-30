@@ -35,7 +35,7 @@ public class MenuAdapter  extends ArrayAdapter<MenuItem_Class> {
         MenuItem_Class menuItem = menuItemsList.get(position);
         name.setText(menuItem.name);
         description.setText(menuItem.description);
-        price.setText(menuItem.price.toString());
+        price.setText(menuItem.price.toString() + " kr");
         return view;
     }
 }
