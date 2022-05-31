@@ -38,7 +38,7 @@ public class OrderAdapter extends ArrayAdapter<MenuItem_Class> {
         Button button = view.findViewById(R.id.order_dish_button);
         MenuItem_Class menuItem = menuItemsList.get(position);
         name.setText(menuItem.name);
-        button.setId(menuItem.getID());
+        button.setId(position);
         return view;
 
 
