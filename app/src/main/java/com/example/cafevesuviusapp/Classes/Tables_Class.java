@@ -7,6 +7,10 @@ public class Tables_Class {
     public int placementInt;
     public String placement;
 
-
-
+    public Tables_Class(){}
+    public Tables_Class(int id, int size, int placement){
+        this.id = id;
+        this.customerSize = size;
+        this.placementInt = placement;
+    }
 }

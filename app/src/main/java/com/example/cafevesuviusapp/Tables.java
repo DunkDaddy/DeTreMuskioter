@@ -48,14 +48,26 @@ public class Tables extends AppCompatActivity {
     RequestQueue requestQueue;
     String[] s;
     ArrayList<Location_Class> locationList = new ArrayList<>();
-    ArrayList<Tables_Class> table = new ArrayList<>();
+    ArrayList<Tables_Class> tableList = new ArrayList<>();
+    ArrayAdapter<String> Locationadapter;
 
 
+    public void putIntoTableList(int id, int size, int placement){
+        Tables_Class newTable = new Tables_Class(id, size, placement);
+        tableList.add(newTable);
+    }
+    public void putIntoLocationList(int id, String name){
+        Location_Class newLocation = new Location_Class(id, name);
+        locationList.add(newLocation);
+        locations.add(name);
+    }
     public void workaround(String a){
         number = a;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestQueue = Volley.newRequestQueue(this);
+        getLocationData();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tables);
         number = getIntent().getStringExtra("People");
@@ -67,7 +79,7 @@ public class Tables extends AppCompatActivity {
             test.setText("Number of People: " + number);
         }
 
-        requestQueue = Volley.newRequestQueue(this);
+
 
         //Code for reacting to clicked Item in Listview
         ListView lv = (ListView) findViewById(R.id.LisviewTest);
@@ -87,25 +99,15 @@ public class Tables extends AppCompatActivity {
 
         //For dropdown Menu with table locations.
         Spinner tableSpinner = (Spinner) findViewById(R.id.planets_spinner3);
-        locationList = getLocationData();
 
-        for (int i = 0; i < locationList.size(); i++){
-            Location_Class location = new Location_Class();
-            location = locationList.get(i);
-            locations.add(location.placement);
-            moveTable(locationList.get(i).placement);
-        if (locationList.size() == 0){
-
-            }
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        tableSpinner.setAdapter(adapter);
+        Locationadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
+        Locationadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tableSpinner.setAdapter(Locationadapter);
         //TODO function to retrieve locations
         tableSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = (String) adapter.getItem(position).toString();
+                String selectedItem = (String) Locationadapter.getItem(position).toString();
 
                 if (selectedItem.matches("Bygning 1")){
                      changeList(1);
@@ -199,8 +201,7 @@ public class Tables extends AppCompatActivity {
     }
 
     //TODO--------------------------------------------
-    private ArrayList<Location_Class> getLocationData(){
-        ArrayList<Location_Class> locationData = new ArrayList<>();
+    private void getLocationData(){
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, locations_url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -210,11 +211,12 @@ public class Tables extends AppCompatActivity {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         int id = jsonObject.getInt("id");
                         String name = jsonObject.getString("name");
-                        locationData.add(new Location_Class(id, name));
+                        putIntoLocationList(id, name);
                     }
                 } catch (Exception w) {
                     Toast.makeText(Tables.this, w.getMessage(), Toast.LENGTH_LONG);
                 }
+                Locationadapter.notifyDataSetChanged();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -223,8 +225,35 @@ public class Tables extends AppCompatActivity {
             }
         });
         requestQueue.add(jsonArrayRequest);
-        return locationData;
     }
+
+    private void getTableData(){
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, table_url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONArray jsonArray = response;
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int id = jsonObject.getInt("id");
+                        int size = jsonObject.getInt("size");
+                        int locationId = jsonObject.getInt("locationId_id");
+                        putIntoTableList(id, size, locationId);
+                    }
+                } catch (Exception w) {
+                    Toast.makeText(Tables.this, w.getMessage(), Toast.LENGTH_LONG);
+                }
+                Locationadapter.notifyDataSetChanged();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Tables.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+    }
+
 
 
 
