@@ -42,14 +42,14 @@ public class Tables extends AppCompatActivity {
 
     String number;
     int variable;
-    private String table_url = "http://10.0.2.2:8000/menuitems-list/?format=json";
+    private String table_url = "http://10.0.2.2:8000/tables-list/?format=json";
     private String locations_url = "http://10.0.2.2:8000/location-list/?format=json";
     ArrayList<String> locations = new ArrayList<>();
     RequestQueue requestQueue;
-    String[] s;
+    ArrayList<String> tables = new ArrayList<>();
     ArrayList<Location_Class> locationList = new ArrayList<>();
     ArrayList<Tables_Class> tableList = new ArrayList<>();
-    ArrayAdapter<String> Locationadapter;
+    ArrayAdapter<String> Locationadapter, tableAdapter;
 
 
     public void putIntoTableList(int id, int size, int placement){
@@ -68,6 +68,8 @@ public class Tables extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         requestQueue = Volley.newRequestQueue(this);
         getLocationData();
+        getTables();
+        //changeList(locationList.get(0).id);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tables);
         number = getIntent().getStringExtra("People");
@@ -93,10 +95,7 @@ public class Tables extends AppCompatActivity {
                 }
             }
         });
-
-        //Set Viewlist on load.
-        changeList(1);
-
+        
         //For dropdown Menu with table locations.
         Spinner tableSpinner = (Spinner) findViewById(R.id.planets_spinner3);
 
@@ -108,13 +107,12 @@ public class Tables extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = (String) Locationadapter.getItem(position).toString();
+                for (int i = 0; i < locationList.size(); i++){
+                    if (selectedItem.matches(locationList.get(i).placement)){
+                        changeList(locationList.get(i).id);
+                    }
+                }
 
-                if (selectedItem.matches("Bygning 1")){
-                     changeList(1);
-                }
-                else if(selectedItem.matches("Udendørs")){
-                    changeList(2);
-                }
             }
 
             @Override
@@ -127,14 +125,16 @@ public class Tables extends AppCompatActivity {
     }
 
     //Method for showing tables at specific location.
-    public void changeList(int listItem){
-
+    public void changeList(int location){
         ListView listTest = (ListView) findViewById(R.id.LisviewTest);
-        ArrayAdapter<String> arr;
-        //TODO code for retrieving table from Database
-        String[] S = {"new", "pew"};
-        arr = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, S);
-        listTest.setAdapter(arr);
+        tables.clear();moveTable(String.valueOf(location));
+        for (int i = 0; i < tableList.size(); i++){
+            if (location == tableList.get(i).placementInt){
+                tables.add(String.valueOf(tableList.get(i).id) + " - Size: " + String.valueOf(tableList.get(i).customerSize));
+            }
+        }
+        tableAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, tables);
+        listTest.setAdapter(tableAdapter);
 
     }
 
@@ -227,6 +227,32 @@ public class Tables extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }
 
+    private void getTables(){
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, table_url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONArray jsonArray = response;
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int id = jsonObject.getInt("id");
+                        int size = jsonObject.getInt("size");
+                        int location = jsonObject.getInt("locationId");
+                        putIntoTableList(id, size, location);
+                    }
+                } catch (Exception w) {
+                    Toast.makeText(Tables.this, w.getMessage(), Toast.LENGTH_LONG);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Tables.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+    }
+
     private void getTableData(){
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, table_url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -239,11 +265,12 @@ public class Tables extends AppCompatActivity {
                         int size = jsonObject.getInt("size");
                         int locationId = jsonObject.getInt("locationId_id");
                         putIntoTableList(id, size, locationId);
+                        moveTable(String.valueOf(id));
                     }
                 } catch (Exception w) {
                     Toast.makeText(Tables.this, w.getMessage(), Toast.LENGTH_LONG);
                 }
-                Locationadapter.notifyDataSetChanged();
+                tableAdapter.notifyDataSetChanged();
             }
         }, new Response.ErrorListener() {
             @Override
