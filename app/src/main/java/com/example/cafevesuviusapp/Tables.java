@@ -23,13 +23,17 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.android.volley.toolbox.Volley;
 import com.example.cafevesuviusapp.Classes.Location_Class;
@@ -41,9 +45,12 @@ public class Tables extends AppCompatActivity {
 
 
     String number;
-    int variable;
+    String location;
+    int tableId;
+    int tableSize;
     private String table_url = "http://5.186.68.226:8000/tables-list/?format=json";
     private String locations_url = "http://5.186.68.226:8000/location-list/?format=json";
+    private String tableUpdate_url = "http://5.186.68.226:8000/tables-update/";
     ArrayList<String> locations = new ArrayList<>();
     RequestQueue requestQueue;
     ArrayList<String> tables = new ArrayList<>();
@@ -52,8 +59,18 @@ public class Tables extends AppCompatActivity {
     ArrayAdapter<String> Locationadapter, tableAdapter;
 
 
+    public void editTableList(int id, int locationId){
+        int x = 0;
+        for (int i = 0; i < tableList.size(); i++){
+            if (tableList.get(i).id == id){
+                x = tableList.get(i).placementInt;
+                tableList.get(i).placementInt = locationId;
+            }
+        }
+        changeList(x);
+    }
     public void putIntoTableList(int id, int size, int placement){
-        Tables_Class newTable = new Tables_Class(id, size, placement);
+        Tables_Class newTable = new Tables_Class(id, size, placement, String.valueOf(id) + " - Size: " + String.valueOf(size));
         tableList.add(newTable);
     }
     public void putIntoLocationList(int id, String name){
@@ -62,7 +79,7 @@ public class Tables extends AppCompatActivity {
         locations.add(name);
     }
     public void workaround(String a){
-        number = a;
+        location = a;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +106,14 @@ public class Tables extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String table = lv.getItemAtPosition(position).toString();
+                for (int i = 0; i < tableList.size(); i++){
+                    if (table.matches(tableList.get(i).placement)){
+                        tableId = tableList.get(i).id;
+                        tableSize = tableList.get(i).customerSize;
+                    }
+                }
                 if (number.matches("")){
-                    moveTable("Want to move " + table);
+                    moveTable(table, tableId, tableSize);
                 }
             }
         });
@@ -130,6 +153,7 @@ public class Tables extends AppCompatActivity {
         for (int i = 0; i < tableList.size(); i++){
             if (location == tableList.get(i).placementInt){
                 tables.add(String.valueOf(tableList.get(i).id) + " - Size: " + String.valueOf(tableList.get(i).customerSize));
+                //tableList.get(i).placement = String.valueOf(tableList.get(i).id) + " - Size: " + String.valueOf(tableList.get(i).customerSize);
             }
         }
         tableAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, tables);
@@ -137,14 +161,13 @@ public class Tables extends AppCompatActivity {
 
     }
 
-    public void moveTable(String text){
+    public void moveTable(String text, int id, int size){
         DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
-            //TODO Code to retrive locations from Database
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        finalMoveTable(locations, text);
+                        finalMoveTable(text, id, size);
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -156,11 +179,11 @@ public class Tables extends AppCompatActivity {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(text).setPositiveButton("Yes", dialogListener).setNegativeButton("No", dialogListener).show();
+        builder.setMessage("What do you want do do with table " + text).setPositiveButton("Move the Table", dialogListener).setNegativeButton("Delete the Table", dialogListener).show();
     }
 
     //Creates a popup when you've chosen a table to move
-    public void finalMoveTable(ArrayList<String> locations, String table){
+    public void finalMoveTable (String table, int id, int size){
 
         final ArrayAdapter<String> adp = new ArrayAdapter<String>(Tables.this,
                 android.R.layout.simple_spinner_item, locations);
@@ -185,7 +208,11 @@ public class Tables extends AppCompatActivity {
         DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //TODO code changing a tables location
+                for (int i = 0; i < locationList.size(); i++){
+                    if (location.matches(locationList.get(i).placement)){
+                        updateTable(id, locationList.get(i).id, size );
+                    }
+                }
             }
         };
 
@@ -250,7 +277,34 @@ public class Tables extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }
 
-
+    private void updateTable(int id, int locationId, int size) {
+        StringRequest request = new StringRequest(Request.Method.POST, tableUpdate_url + id + "/", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(Tables.this, "Data added to API", Toast.LENGTH_SHORT).show();
+                editTableList(id, locationId);
+                try {
+                    JSONObject respObj = new JSONObject(response);
+                } catch (JSONException jE) {
+                    jE.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Tables.this, "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("size", String.valueOf(size));
+                params.put("locationId", String.valueOf(locationId));
+                return params;
+            }
+        };
+        requestQueue.add(request);
+    }
 
 
 

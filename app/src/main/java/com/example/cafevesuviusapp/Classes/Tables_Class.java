@@ -13,4 +13,11 @@ public class Tables_Class {
         this.customerSize = size;
         this.placementInt = placement;
     }
+    public Tables_Class(int id, int size, int placementId, String placement){
+        this.id = id;
+        this.customerSize = size;
+        this.placementInt = placementId;
+        this.placement = placement;
+    }
+
 }
