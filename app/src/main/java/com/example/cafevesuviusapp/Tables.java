@@ -42,8 +42,8 @@ public class Tables extends AppCompatActivity {
 
     String number;
     int variable;
-    private String table_url = "http://10.0.2.2:8000/tables-list/?format=json";
-    private String locations_url = "http://10.0.2.2:8000/location-list/?format=json";
+    private String table_url = "http://5.186.68.226:8000/tables-list/?format=json";
+    private String locations_url = "http://5.186.68.226:8000/location-list/?format=json";
     ArrayList<String> locations = new ArrayList<>();
     RequestQueue requestQueue;
     ArrayList<String> tables = new ArrayList<>();
@@ -69,7 +69,6 @@ public class Tables extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         getLocationData();
         getTables();
-        //changeList(locationList.get(0).id);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tables);
         number = getIntent().getStringExtra("People");
@@ -127,7 +126,7 @@ public class Tables extends AppCompatActivity {
     //Method for showing tables at specific location.
     public void changeList(int location){
         ListView listTest = (ListView) findViewById(R.id.LisviewTest);
-        tables.clear();moveTable(String.valueOf(location));
+        tables.clear();
         for (int i = 0; i < tableList.size(); i++){
             if (location == tableList.get(i).placementInt){
                 tables.add(String.valueOf(tableList.get(i).id) + " - Size: " + String.valueOf(tableList.get(i).customerSize));
@@ -141,12 +140,11 @@ public class Tables extends AppCompatActivity {
     public void moveTable(String text){
         DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
             //TODO Code to retrive locations from Database
-            String[] s = {"Bygning 1", "Bygning 2", "Udendørs"};
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        finalMoveTable(s, text);
+                        finalMoveTable(locations, text);
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -162,7 +160,7 @@ public class Tables extends AppCompatActivity {
     }
 
     //Creates a popup when you've chosen a table to move
-    public void finalMoveTable(String[] locations, String table){
+    public void finalMoveTable(ArrayList<String> locations, String table){
 
         final ArrayAdapter<String> adp = new ArrayAdapter<String>(Tables.this,
                 android.R.layout.simple_spinner_item, locations);
@@ -200,7 +198,6 @@ public class Tables extends AppCompatActivity {
 
     }
 
-    //TODO--------------------------------------------
     private void getLocationData(){
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, locations_url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -253,33 +250,7 @@ public class Tables extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }
 
-    private void getTableData(){
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, table_url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONArray jsonArray = response;
-                try {
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        int id = jsonObject.getInt("id");
-                        int size = jsonObject.getInt("size");
-                        int locationId = jsonObject.getInt("locationId_id");
-                        putIntoTableList(id, size, locationId);
-                        moveTable(String.valueOf(id));
-                    }
-                } catch (Exception w) {
-                    Toast.makeText(Tables.this, w.getMessage(), Toast.LENGTH_LONG);
-                }
-                tableAdapter.notifyDataSetChanged();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Tables.this, error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
-    }
+
 
 
 
