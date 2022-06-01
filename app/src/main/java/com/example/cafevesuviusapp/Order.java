@@ -29,13 +29,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Order extends AppCompatActivity {
-    private final String server_url = "http://10.0.2.2:8000";
+    private final String server_url = "http://5.186.68.226:8000";
     private final String menuItemUrl = "/menuitems-list/?format=json";
     private final String categoryUrl = "/category-list/?format=json";
-    private final String waiterUrl = "";
     private final String tableUrl = "";
     private final String orderCreateUrl = "/order-create/";
     private final String orderItemAddUrl = "/orderitems-create/";
+    private final String orderBarItemAddUrl = "";
     RequestQueue requestQueue;
     List<MenuItem_Class> orderMenuItems;
     OrderAdapter orderAdapter;
@@ -125,9 +125,9 @@ public class Order extends AppCompatActivity {
                         addItemToOrder(Integer.toString(menuItem.getID()), Integer.toString(newOrder.id));
                     }
                     for (MenuItem_Class menuItem : newOrder.drinks) {
+                        //addItemToBar(Integer.toString(menuItem.getID()), Integer.toString(newOrder.id));
                         addItemToOrder(Integer.toString(menuItem.getID()), Integer.toString(newOrder.id));
                     }
-
                 } catch (JSONException jE) {
                     jE.printStackTrace();
                 }
@@ -171,6 +171,34 @@ public class Order extends AppCompatActivity {
                 params.put("orderId", orderId);
                 return params;
             }
+        };
+        requestQueue.add(request);
+    }
+    private void addItemToBar(String menuItemId, String orderId) {
+        StringRequest request = new StringRequest(Request.Method.POST, server_url + orderBarItemAddUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(Order.this, "Data added to API", Toast.LENGTH_SHORT).show();
+                try {
+                    JSONObject respObj = new JSONObject(response);
+                } catch (JSONException jE) {
+                    jE.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Order.this, "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("menuItemsId", menuItemId);
+                params.put("orderId", orderId);
+                return params;
+            }
+
         };
         requestQueue.add(request);
     }

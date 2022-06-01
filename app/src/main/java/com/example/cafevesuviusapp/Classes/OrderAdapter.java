@@ -6,13 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.cafevesuviusapp.R;
-import com.example.cafevesuviusapp.Order;
 
 import java.util.List;
 
@@ -40,9 +38,5 @@ public class OrderAdapter extends ArrayAdapter<MenuItem_Class> {
         name.setText(menuItem.name);
         button.setId(position);
         return view;
-
-
-
-
     }
 }
