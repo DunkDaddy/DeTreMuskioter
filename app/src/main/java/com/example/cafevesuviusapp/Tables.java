@@ -51,6 +51,7 @@ public class Tables extends AppCompatActivity {
     private String table_url = "http://5.186.68.226:8000/tables-list/?format=json";
     private String locations_url = "http://5.186.68.226:8000/location-list/?format=json";
     private String tableUpdate_url = "http://5.186.68.226:8000/tables-update/";
+    private String deleteTable_url = "http://5.186.68.226:8000/tables-delete/";
     ArrayList<String> locations = new ArrayList<>();
     RequestQueue requestQueue;
     ArrayList<String> tables = new ArrayList<>();
@@ -58,7 +59,16 @@ public class Tables extends AppCompatActivity {
     ArrayList<Tables_Class> tableList = new ArrayList<>();
     ArrayAdapter<String> Locationadapter, tableAdapter;
 
-
+    public void deleteTableListItem(int id){
+        int x = 0;
+        for (int i = 0; i < tableList.size(); i++){
+            if (tableList.get(i).id == id){
+                x = tableList.get(i).id;
+                tableList.remove(i);
+            }
+        }
+        changeList(x);
+    }
     public void editTableList(int id, int locationId){
         int x = 0;
         for (int i = 0; i < tableList.size(); i++){
@@ -171,7 +181,7 @@ public class Tables extends AppCompatActivity {
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
-                        //If no is pressed
+                        deleteTableMethod(text, id);
                         break;
                 }
             }
@@ -180,6 +190,27 @@ public class Tables extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("What do you want do do with table " + text).setPositiveButton("Move the Table", dialogListener).setNegativeButton("Delete the Table", dialogListener).show();
+    }
+
+    public void deleteTableMethod(String text, int id){
+        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        deleteTableData(id);
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //If no is pressed
+                        break;
+                }
+            }
+        };
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete table: " + text).setPositiveButton("Yes", dialogListener).setNegativeButton("No", dialogListener).show();
     }
 
     //Creates a popup when you've chosen a table to move
@@ -303,6 +334,27 @@ public class Tables extends AppCompatActivity {
                 return params;
             }
         };
+        requestQueue.add(request);
+    }
+
+    private void deleteTableData(int id) {
+        StringRequest request = new StringRequest(Request.Method.GET, deleteTable_url + id + "/", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(Tables.this, "Data added to API", Toast.LENGTH_SHORT).show();
+                deleteTableListItem(id);
+                try {
+                    JSONObject respObj = new JSONObject(response);
+                } catch (JSONException jE) {
+                    jE.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Tables.this, "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
+            }
+        });
         requestQueue.add(request);
     }
 
