@@ -53,6 +53,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
     <style name="menu_scroll_RelativeLayout">
         <item name="android:layout_width">match_parent</item>
@@ -70,24 +71,26 @@
     <style name="menu_item.Name">
         <item name="android:layout_alignParentStart">true</item>
         <item name="android:layout_alignParentTop">true</item>
-        <item name="android:layout_marginStart">20dp</item>
-        <item name="android:layout_marginTop">13dp</item>
+        <!-- <item name="android:layout_marginStart">20dp</item> -->
+        <item name="android:layout_marginTop">5dp</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
     <style name="menu_item.Description">
         <item name="android:layout_below">@+id/Dish_Name</item>
-        <item name="android:layout_marginStart">-69dp</item>
+        <!-- <item name="android:layout_marginStart">-69dp</item> -->
         <item name="android:layout_marginTop">9dp</item>
-        <item name="android:layout_toEndOf">@+id/Dish_Name</item>
+        <!-- <item name="android:layout_toEndOf">@+id/Dish_Name</item> -->
+        <item name="android:lines">3</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">normal</item>
     </style>
     <style name="menu_item.Price">
         <item name="android:layout_below">@+id/Dish_Description</item>
-        <item name="android:layout_marginStart">2dp</item>
+        <item name="android:layout_marginStart">350dp</item>
         <item name="android:layout_marginTop">14dp</item>
         <item name="android:layout_toEndOf">@+id/Dish_Description</item>
+        <item name="android:layout_alignParentLeft">true</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">normal</item>
     </style>
@@ -174,8 +177,8 @@
         <item name="android:textSize">24sp</item>
     </style>
     <style name="orders_scrollView">
-        <item name="android:layout_width">407dp</item>
-        <item name="android:layout_height">653dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="linearLayout">
         <item name="android:layout_width">match_parent</item>
@@ -316,5 +319,25 @@
     <style name="button.reservation">
         <item name="android:text">@string/Reservations_ReserveTables</item>
         <item name="android:textSize">24sp</item>
+    </style>
+    <style name="order_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:text">Test</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="button_order_item">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">add to order</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">60dp</item>
+    </style>
+    <style name="linearLayout2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
     </style>
 </resources>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/header.Horizontal">
 
     <TextView
@@ -11,10 +13,14 @@
     <TextView
         android:id="@+id/Dish_Description"
         style="@style/menu_item.Description"
-        android:text="@string/Menu_Burger" />
+        android:layout_width="395dp"
+        android:layout_height="wrap_content"
+        android:text="@string/Menu_Burger"
+        app:layout_constraintTop_toBottomOf="@+id/Dish_Name" />
 
     <TextView
         android:id="@+id/Dish_Price"
         style="@style/menu_item.Price"
-        android:text="@string/Menu_Burger" />
+        android:text="@string/Menu_Burger"
+        app:layout_constraintTop_toBottomOf="@+id/Dish_Description" />
 </RelativeLayout>
