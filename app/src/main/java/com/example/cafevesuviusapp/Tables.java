@@ -365,11 +365,7 @@ public class Tables extends AppCompatActivity {
             public void onResponse(String response) {
                 Toast.makeText(Tables.this, "Table has been deleted", Toast.LENGTH_SHORT).show();
                 deleteTableListItem(id);
-                try {
-                    JSONObject respObj = new JSONObject(response);
-                } catch (JSONException jE) {
-                    jE.printStackTrace();
-                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -465,6 +461,7 @@ public class Tables extends AppCompatActivity {
                     int locationId = respObj.getInt("locationId");
                     boolean available = respObj.getBoolean("avalability");
                     putIntoTableList(id, size, locationId, available);
+                    changeList(locationId);
                 } catch (JSONException jE) {
                     jE.printStackTrace();
                 }
