@@ -2,8 +2,10 @@ package com.example.cafevesuviusapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,7 +29,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.example.cafevesuviusapp.Classes.Location_Class;
@@ -37,19 +41,24 @@ import com.example.cafevesuviusapp.Classes.Tables_Class;
 public class Tables extends AppCompatActivity {
 
 
+
     String number;
     String location;
+    String size;
     int tableId;
     int tableSize;
+    int locationId;
     private String table_url = "http://5.186.68.226:8000/tables-list/?format=json";
     private String locations_url = "http://5.186.68.226:8000/location-list/?format=json";
     private String tableUpdate_url = "http://5.186.68.226:8000/tables-update/";
     private String deleteTable_url = "http://5.186.68.226:8000/tables-delete/";
+    private String createTable_url = "http://5.186.68.226:8000/tables-create/";
     ArrayList<String> locations = new ArrayList<>();
     RequestQueue requestQueue;
     ArrayList<String> tables = new ArrayList<>();
     ArrayList<Location_Class> locationList = new ArrayList<>();
     ArrayList<Tables_Class> tableList = new ArrayList<>();
+    List<String> tableSizes = new ArrayList<String>();
     ArrayAdapter<String> Locationally, tableAdapter;
 
     public String tableAvailability(Boolean availability){
@@ -92,14 +101,20 @@ public class Tables extends AppCompatActivity {
         locationList.add(newLocation);
         locations.add(name);
     }
-    public void workaround(String a){
+    public void locationWorkaround(String a){
         location = a;
+    }
+    public void sizeWorkaround(String a){
+        size = a;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        locationId = 1;
         requestQueue = Volley.newRequestQueue(this);
         getLocationData();
         getTables();
+        Resources res = getResources();
+        tableSizes = Arrays.asList(res.getStringArray(R.array.TableSizes));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tables);
         number = getIntent().getStringExtra("People");
@@ -139,7 +154,6 @@ public class Tables extends AppCompatActivity {
         Locationally = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
         Locationally.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tableSpinner.setAdapter(Locationally);
-        //TODO function to retrieve locations
         tableSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -147,6 +161,7 @@ public class Tables extends AppCompatActivity {
                 for (int i = 0; i < locationList.size(); i++){
                     if (selectedItem.matches(locationList.get(i).placement)){
                         changeList(locationList.get(i).id);
+                        locationId = locationList.get(i).id;
                     }
                 }
 
@@ -230,7 +245,7 @@ public class Tables extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = (String) adp.getItem(position).toString();
-                workaround(selectedItem);
+                locationWorkaround(selectedItem);
 
             }
 
@@ -365,7 +380,12 @@ public class Tables extends AppCompatActivity {
         requestQueue.add(request);
     }
 
-    public void createTable(){
+    public void createTableView(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Tables.this);
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(Tables.this);
+        builder.setMessage("How big is the table?");
+        builder2.setMessage("Where is it located?");
+
         final ArrayAdapter<String> adp = new ArrayAdapter<String>(Tables.this,
                 android.R.layout.simple_spinner_item, locations);
         final Spinner sp = new Spinner(Tables.this);
@@ -375,7 +395,27 @@ public class Tables extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = (String) adp.getItem(position).toString();
-                workaround(selectedItem);
+                locationWorkaround(selectedItem);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+        });
+
+       final ArrayAdapter<String> adp2 = new ArrayAdapter<String>(Tables.this,
+                android.R.layout.simple_spinner_item, tableSizes);
+        final Spinner sp2 = new Spinner(Tables.this);
+        sp2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        sp2.setAdapter(adp2);
+        sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = (String) adp2.getItem(position).toString();
+                sizeWorkaround(selectedItem);
 
             }
 
@@ -389,13 +429,62 @@ public class Tables extends AppCompatActivity {
         DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                for (int i = 0; i < locationList.size(); i++){
-                    if (location.matches(locationList.get(i).placement)){
-
-                    }
-                }
+                builder2.create().show();
             }
         };
+        DialogInterface.OnClickListener dialogListener2 = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String tableLocation = "";
+                for (int i = 0; i < locationList.size(); i++){
+                    if (locationList.get(i).placement.matches(location)){
+                        tableLocation = String.valueOf(locationList.get(i).id);
+                    }
+                }
+                createTableData(tableLocation, size);
+                changeList(locationId);
+            }
+        };
+
+        builder.setPositiveButton("Ok",dialogListener );
+        builder2.setPositiveButton("Ok", dialogListener2);
+        builder.setView(sp2);
+        builder2.setView(sp);
+        builder.create().show();
+    }
+
+    private void createTableData(String tableLocationId, String size) {
+        StringRequest request = new StringRequest(Request.Method.POST, createTable_url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(Tables.this, "Table created", Toast.LENGTH_SHORT).show();
+                try {
+                    JSONObject respObj = new JSONObject(response);
+                    int id = respObj.getInt("id");
+                    int size = respObj.getInt("size");
+                    int locationId = respObj.getInt("locationId");
+                    boolean available = respObj.getBoolean("avalability");
+                    putIntoTableList(id, size, locationId, available);
+                } catch (JSONException jE) {
+                    jE.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Tables.this, "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("size", String.valueOf(size));
+                params.put("locationId", String.valueOf(tableLocationId));
+                params.put("avalability",String.valueOf(true));
+                return params;
+            }
+        };
+        requestQueue.add(request);
     }
 
 
