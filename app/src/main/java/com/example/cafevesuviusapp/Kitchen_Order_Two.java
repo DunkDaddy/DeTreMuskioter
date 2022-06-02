@@ -190,8 +190,9 @@ public class Kitchen_Order_Two extends AppCompatActivity {
                         {
                             if (categoryId != 4)
                             {
-                                MenuItem_Class item = new MenuItem_Class(menuId, name, price, description, categoryId);
-                                order.dishes.add(item);
+                                //MenuItem_Class item = new MenuItem_Class(menuId, name, price, description, categoryId);
+                                //order.dishes.add(item);
+                                insertIntoOrders(menuId, name, price, description, categoryId);
 
                             }
                             break;
@@ -208,5 +209,10 @@ public class Kitchen_Order_Two extends AppCompatActivity {
             }
         });
         requestQueue.add(jsonArrayRequest);
+    }
+
+    public void insertIntoOrders(int menuId, String name, double price, String description, int categoryId){
+        MenuItem_Class item = new MenuItem_Class(menuId, name, price, description, categoryId);
+        order.dishes.add(item);
     }
 }
