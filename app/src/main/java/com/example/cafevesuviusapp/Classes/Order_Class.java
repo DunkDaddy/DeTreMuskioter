@@ -9,6 +9,7 @@ public class Order_Class {
     public int table_Id;
     public int waiter_Id;
     public int status_Id;
+    public String fullOrder;
     public List<MenuItem_Class> dishes = new ArrayList<>();
     public List<MenuItem_Class> drinks = new ArrayList<>();
 

@@ -39,6 +39,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
+        android:id="@+id/recievedListId"
         android:layout_width="326dp"
         android:layout_height="617dp"
         android:layout_marginStart="56dp"
@@ -47,6 +48,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <ListView
+        android:id="@+id/workingListId"
         android:layout_width="363dp"
         android:layout_height="625dp"
         android:layout_marginStart="404dp"
@@ -55,10 +57,22 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <ListView
+        android:id="@+id/awaitingListId"
         android:layout_width="356dp"
         android:layout_height="631dp"
         android:layout_marginStart="780dp"
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <Button
+        android:id="@+id/kitcheUpdateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="36dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="manualViewUpdate"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

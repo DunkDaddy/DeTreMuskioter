@@ -138,7 +138,6 @@ public class Tables extends AppCompatActivity {
                     if (table.matches(tableList.get(i).placement)){
                         tableId = tableList.get(i).id;
                         tableSize = tableList.get(i).customerSize;
-                        Toast.makeText(Tables.this, "Yes", Toast.LENGTH_SHORT).show();
                     }
                 }
                 if (number.matches("")){
