@@ -2,18 +2,14 @@ package com.example.cafevesuviusapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.LocaleList;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,13 +28,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.android.volley.toolbox.Volley;
 import com.example.cafevesuviusapp.Classes.Location_Class;
 import com.example.cafevesuviusapp.Classes.Tables_Class;
-import com.google.android.material.snackbar.Snackbar;
 
 
 public class Tables extends AppCompatActivity {
@@ -57,8 +50,19 @@ public class Tables extends AppCompatActivity {
     ArrayList<String> tables = new ArrayList<>();
     ArrayList<Location_Class> locationList = new ArrayList<>();
     ArrayList<Tables_Class> tableList = new ArrayList<>();
-    ArrayAdapter<String> Locationadapter, tableAdapter;
+    ArrayAdapter<String> Locationally, tableAdapter;
 
+    public String tableAvailability(Boolean availability){
+        if (availability == false){
+            return "Unavailable";
+        }
+        else if (availability == true){
+            return "Available";
+        }
+        else{
+            return "";
+        }
+    }
     public void deleteTableListItem(int id){
         int x = 0;
         for (int i = 0; i < tableList.size(); i++){
@@ -79,8 +83,8 @@ public class Tables extends AppCompatActivity {
         }
         changeList(x);
     }
-    public void putIntoTableList(int id, int size, int placement){
-        Tables_Class newTable = new Tables_Class(id, size, placement, String.valueOf(id) + " - Size: " + String.valueOf(size));
+    public void putIntoTableList(int id, int size, int placement, boolean availability){
+        Tables_Class newTable = new Tables_Class(id, size, placement, "Table: " + String.valueOf(id) + " - Size: " + String.valueOf(size) + " - Avalability :" + tableAvailability(availability), availability);
         tableList.add(newTable);
     }
     public void putIntoLocationList(int id, String name){
@@ -131,14 +135,14 @@ public class Tables extends AppCompatActivity {
         //For dropdown Menu with table locations.
         Spinner tableSpinner = (Spinner) findViewById(R.id.planets_spinner3);
 
-        Locationadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
-        Locationadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        tableSpinner.setAdapter(Locationadapter);
+        Locationally = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, locations);
+        Locationally.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        tableSpinner.setAdapter(Locationally);
         //TODO function to retrieve locations
         tableSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = (String) Locationadapter.getItem(position).toString();
+                String selectedItem = (String) Locationally.getItem(position).toString();
                 for (int i = 0; i < locationList.size(); i++){
                     if (selectedItem.matches(locationList.get(i).placement)){
                         changeList(locationList.get(i).id);
@@ -162,7 +166,7 @@ public class Tables extends AppCompatActivity {
         tables.clear();
         for (int i = 0; i < tableList.size(); i++){
             if (location == tableList.get(i).placementInt){
-                tables.add(String.valueOf(tableList.get(i).id) + " - Size: " + String.valueOf(tableList.get(i).customerSize));
+                tables.add("Table: " + String.valueOf(tableList.get(i).id) + " - Size: " + String.valueOf(tableList.get(i).customerSize) + " - Availability :" + tableAvailability(tableList.get(i).avalabilty));
                 //tableList.get(i).placement = String.valueOf(tableList.get(i).id) + " - Size: " + String.valueOf(tableList.get(i).customerSize);
             }
         }
@@ -271,7 +275,7 @@ public class Tables extends AppCompatActivity {
                 } catch (Exception w) {
                     Toast.makeText(Tables.this, w.getMessage(), Toast.LENGTH_LONG);
                 }
-                Locationadapter.notifyDataSetChanged();
+                Locationally.notifyDataSetChanged();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -293,7 +297,8 @@ public class Tables extends AppCompatActivity {
                         int id = jsonObject.getInt("id");
                         int size = jsonObject.getInt("size");
                         int location = jsonObject.getInt("locationId");
-                        putIntoTableList(id, size, location);
+                        boolean availability = jsonObject.getBoolean("avalability");
+                        putIntoTableList(id, size, location, availability);
                     }
                 } catch (Exception w) {
                     Toast.makeText(Tables.this, w.getMessage(), Toast.LENGTH_LONG);
@@ -356,6 +361,39 @@ public class Tables extends AppCompatActivity {
             }
         });
         requestQueue.add(request);
+    }
+
+    public void createTable(){
+        final ArrayAdapter<String> adp = new ArrayAdapter<String>(Tables.this,
+                android.R.layout.simple_spinner_item, locations);
+        final Spinner sp = new Spinner(Tables.this);
+        sp.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        sp.setAdapter(adp);
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = (String) adp.getItem(position).toString();
+                workaround(selectedItem);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+        });
+
+        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                for (int i = 0; i < locationList.size(); i++){
+                    if (location.matches(locationList.get(i).placement)){
+
+                    }
+                }
+            }
+        };
     }
 
 

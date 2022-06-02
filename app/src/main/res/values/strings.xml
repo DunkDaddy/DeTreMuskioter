@@ -22,10 +22,10 @@
     <string name="Reservations_NumberofPeople">Number of people:</string>
     <string name="Reservations_NumberofPeople_Hint">Number of people</string>
     <string name="Reservations_ReserveTables">Reserve Tables</string>
-    <string-array name="TableLocations">
-        <item>Bygning 1</item>
-        <item>Bygning 2 (Under konstruktion)</item>
-        <item>Udendørs</item>
+    <string-array name="TableSizes">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
     </string-array>
     <string name="loginMain_allOrders">All Orders</string>
     <string name="loginMain_todaySums">Today Sum</string>

@@ -6,6 +6,7 @@ public class Tables_Class {
     public int customerSize;
     public int placementInt;
     public String placement;
+    public boolean avalabilty;
 
     public Tables_Class(){}
     public Tables_Class(int id, int size, int placement){
@@ -13,11 +14,12 @@ public class Tables_Class {
         this.customerSize = size;
         this.placementInt = placement;
     }
-    public Tables_Class(int id, int size, int placementId, String placement){
+    public Tables_Class(int id, int size, int placementId, String placement, boolean avalabilty){
         this.id = id;
         this.customerSize = size;
         this.placementInt = placementId;
         this.placement = placement;
+        this.avalabilty = avalabilty;
     }
 
 }
