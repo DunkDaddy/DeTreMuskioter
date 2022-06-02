@@ -84,7 +84,7 @@ public class Tables extends AppCompatActivity {
         changeList(x);
     }
     public void putIntoTableList(int id, int size, int placement, boolean availability){
-        Tables_Class newTable = new Tables_Class(id, size, placement, "Table: " + String.valueOf(id) + " - Size: " + String.valueOf(size) + " - Avalability :" + tableAvailability(availability), availability);
+        Tables_Class newTable = new Tables_Class(id, size, placement, "Table: " + String.valueOf(id) + " - Size: " + String.valueOf(size) + " - Availability :" + tableAvailability(availability), availability);
         tableList.add(newTable);
     }
     public void putIntoLocationList(int id, String name){
@@ -124,6 +124,7 @@ public class Tables extends AppCompatActivity {
                     if (table.matches(tableList.get(i).placement)){
                         tableId = tableList.get(i).id;
                         tableSize = tableList.get(i).customerSize;
+                        Toast.makeText(Tables.this, "Yes", Toast.LENGTH_SHORT).show();
                     }
                 }
                 if (number.matches("")){
@@ -317,7 +318,7 @@ public class Tables extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, tableUpdate_url + id + "/", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(Tables.this, "Data added to API", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Tables.this, "Table moved", Toast.LENGTH_SHORT).show();
                 editTableList(id, locationId);
                 try {
                     JSONObject respObj = new JSONObject(response);
@@ -336,6 +337,7 @@ public class Tables extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("size", String.valueOf(size));
                 params.put("locationId", String.valueOf(locationId));
+                params.put("avalability",String.valueOf(false));
                 return params;
             }
         };
@@ -346,7 +348,7 @@ public class Tables extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.GET, deleteTable_url + id + "/", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(Tables.this, "Data added to API", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Tables.this, "Table has been deleted", Toast.LENGTH_SHORT).show();
                 deleteTableListItem(id);
                 try {
                     JSONObject respObj = new JSONObject(response);
