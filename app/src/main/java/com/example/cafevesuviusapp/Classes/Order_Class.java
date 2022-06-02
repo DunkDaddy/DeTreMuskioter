@@ -8,19 +8,14 @@ public class Order_Class {
     public int id;
     public int table_Id;
     public int waiter_Id;
+    public int status_Id;
     public List<MenuItem_Class> dishes = new ArrayList<>();
     public List<MenuItem_Class> drinks = new ArrayList<>();
 
-    public void assign_Dish(MenuItem_Class dish){
-        dishes.add(dish);
-    }
-    public void remove_Dish(MenuItem_Class dish){
-        dishes.remove(dish);
-    }
-    public void assign_Drink(MenuItem_Class drink){
-        drinks.add(drink);
-    }
-    public void remove_Drink(MenuItem_Class drink){
-        drinks.remove(drink);
+    public Order_Class(){}
+
+    public Order_Class (int id, int status_Id){
+        this.id = id;
+        this.status_Id = status_Id;
     }
 }

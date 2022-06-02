@@ -41,7 +41,6 @@ import com.example.cafevesuviusapp.Classes.Tables_Class;
 public class Tables extends AppCompatActivity {
 
 
-
     String number;
     String location;
     String size;
