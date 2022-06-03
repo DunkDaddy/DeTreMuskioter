@@ -73,14 +73,12 @@ public class Tables extends AppCompatActivity {
         }
     }
     public void deleteTableListItem(int id){
-        int x = 0;
         for (int i = 0; i < tableList.size(); i++){
             if (tableList.get(i).id == id){
-                x = tableList.get(i).id;
                 tableList.remove(i);
             }
         }
-        changeList(x);
+        changeList(locationId);
     }
     public void editTableList(int id, int locationId){
         int x = 0;
