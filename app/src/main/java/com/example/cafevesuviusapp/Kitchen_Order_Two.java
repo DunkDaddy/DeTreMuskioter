@@ -81,7 +81,16 @@ public class Kitchen_Order_Two extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String order = receivedView.getItemAtPosition(position).toString();
                 int orderId = findOrder(order);
-                String currentStatus = statusArray.get(orders.get(orderId).status_Id).statusName;
+                String currentStatus = "";
+                for (Order_Class item : orders)
+                {
+                    if (item.id == orderId)
+                    {
+                        currentStatus = statusArray.get(item.status_Id).statusName;
+                    }
+                }
+                //String currentStatus = statusArray.get(orders.get(orderId).status_Id).statusName;
+                String Test = "Test";
                 nextStatus(order, orderId, currentStatus);
             }
         });

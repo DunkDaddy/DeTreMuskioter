@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Order extends AppCompatActivity {
-    private final String server_url = "http://10.0.2.2:8000";
+    private final String server_url = "http://5.186.68.226:8000";
     private final String menuItemUrl = "/menuitems-list/?format=json";
     private final String categoryUrl = "/category-list/?format=json";
     private final String waiterUrl = "";
