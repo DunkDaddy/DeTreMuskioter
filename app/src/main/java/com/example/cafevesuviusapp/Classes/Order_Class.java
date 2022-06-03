@@ -19,4 +19,10 @@ public class Order_Class {
         this.id = id;
         this.status_Id = status_Id;
     }
+
+    public Order_Class(int id, int status_Id, int table_Id) {
+        this.id = id;
+        this.status_Id = status_Id;
+        this.table_Id = table_Id;
+    }
 }

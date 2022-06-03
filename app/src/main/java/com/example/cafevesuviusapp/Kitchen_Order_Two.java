@@ -25,10 +25,13 @@ import com.example.cafevesuviusapp.Classes.Order_Class;
 import com.example.cafevesuviusapp.Classes.Status_Class;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Kitchen_Order_Two extends AppCompatActivity {
 
@@ -39,6 +42,7 @@ public class Kitchen_Order_Two extends AppCompatActivity {
     private String menu_url = "http://5.186.68.226:8000/menuitems-list/?format=json";
     private String orderItems_url = "http://5.186.68.226:8000/orderitems-list/?format=json";
     private String status_url = "http://5.186.68.226:8000/status-list/?format=json";
+    private String updateOrder_url = "http://5.186.68.226:8000/order-update/";
 
     ArrayList<MenuItem_Class> menuItems;
     ArrayList<Order_Class> orders;
@@ -90,7 +94,6 @@ public class Kitchen_Order_Two extends AppCompatActivity {
                     }
                 }
                 //String currentStatus = statusArray.get(orders.get(orderId).status_Id).statusName;
-                String Test = "Test";
                 nextStatus(order, orderId, currentStatus);
             }
         });
@@ -99,7 +102,15 @@ public class Kitchen_Order_Two extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String order = doingView.getItemAtPosition(position).toString();
                 int orderId = findOrder(order);
-                nextStatus(order, orderId, statusArray.get(orders.get(orderId).status_Id).statusName);
+                String currentStatus = "";
+                for (Order_Class item : orders)
+                {
+                    if (item.id == orderId)
+                    {
+                        currentStatus = statusArray.get(item.status_Id).statusName;
+                    }
+                }
+                nextStatus(order, orderId, currentStatus);
             }
         });
         awaitingView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -107,7 +118,15 @@ public class Kitchen_Order_Two extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String order = doingView.getItemAtPosition(position).toString();
                 int orderId = findOrder(order);
-                nextStatus(order, orderId, statusArray.get(orders.get(orderId).status_Id).statusName);
+                String currentStatus = "";
+                for (Order_Class item : orders)
+                {
+                    if (item.id == orderId)
+                    {
+                        currentStatus = statusArray.get(item.status_Id).statusName;
+                    }
+                }
+                nextStatus(order, orderId, currentStatus);
             }
         });
 
@@ -174,7 +193,7 @@ public class Kitchen_Order_Two extends AppCompatActivity {
                         int id = jsonObject.getInt("id");
                         int tableId = jsonObject.getInt("tableId");
                         int statusId = jsonObject.getInt("statusId");
-                        putIntoOrders(id, statusId);
+                        putIntoOrders(id, statusId, tableId);
 
                     }
                 } catch (Exception w) {
@@ -224,8 +243,8 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         statusArray.add(newStatus);
         Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
     }
-    public void putIntoOrders(int id, int statusId){
-        Order_Class order = new Order_Class(id, statusId);
+    public void putIntoOrders(int id, int statusId, int tableId){
+        Order_Class order = new Order_Class(id, statusId, tableId);
         orders.add(order);
     }
     public void putIntoOrderItems(int menuItemId, int orderItemId){
@@ -323,6 +342,60 @@ public class Kitchen_Order_Two extends AppCompatActivity {
     public void manualViewUpdate(View view){
         statusLists();
         updateView();
+    }
+
+    private void updateOrder(int id) {
+        int tableId;
+        int statusId;
+        for (Order_Class item : orders)
+        {
+            if (item.id == id) {
+                tableId = item.table_Id;
+                statusId = item.status_Id + 1;
+                break;
+            }
+        }
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, updateOrder_url + id + "/", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(Kitchen_Order_Two.this, "Order Updated", Toast.LENGTH_SHORT).show();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    int newTableId = jsonObject.getInt("tableId");
+                    int newStatusId = jsonObject.getInt("statusId");
+                    editOrderList(id, newTableId, newStatusId);
+
+                }catch (JSONException jE){
+                    jE.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Kitchen_Order_Two.this, "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("tableId", String.valueOf(tableId));
+                params.put("statusId", String.valueOf(statusId));
+
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+
+
+    }
+
+    public void editOrderList(int id, int tableId, int statusId) {
+        int x = 0;
+        for ( int i = 0; i<orders.size(); i++) {
+            if(orders.get(i).id == id) {
+
+            }
+        }
     }
 
 }
