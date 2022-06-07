@@ -27,7 +27,6 @@ public class Login extends AppCompatActivity {
 
 
     private String employee_url = "http://5.186.68.226:8000/employeegoodluckguessingthis9-list9/?format=json";
-    private String rank_url = "http://5.186.68.226:8000/rank-list/?format=json";
     ArrayList<Employee_Class> employeeList = new ArrayList<>();
     ArrayList<Rank_Class> rankList = new ArrayList<>();
     RequestQueue requestQueue;
