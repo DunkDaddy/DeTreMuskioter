@@ -26,7 +26,8 @@
         style="@style/login_Txt.userName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Login_UserTXT" />
+        app:layout_constraintTop_toBottomOf="@+id/Login_UserTXT"
+        android:hint="Username"/>
 
     <TextView
         android:id="@+id/Login_PassTXT"
@@ -40,12 +41,13 @@
         style="@style/login_Txt.password_Edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Login_PassTXT" />
+        app:layout_constraintTop_toBottomOf="@+id/Login_PassTXT"
+        android:hint="Password"/>
 
     <Button
         android:id="@+id/GOTO_LoginMain"
         style="@style/button.login"
-        android:onClick="login"
+        android:onClick="authentication"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
