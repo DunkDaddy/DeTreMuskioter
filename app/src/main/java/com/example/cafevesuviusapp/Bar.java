@@ -3,7 +3,9 @@ package com.example.cafevesuviusapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -16,7 +18,6 @@ import com.example.cafevesuviusapp.Classes.MenuItem_Class;
 import com.example.cafevesuviusapp.Classes.OrderItems_Class;
 import com.example.cafevesuviusapp.Classes.Order_Class;
 import com.example.cafevesuviusapp.Classes.Status_Class;
-import com.example.cafevesuviusapp.Kitchen_Order_Two;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,7 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarOrders extends AppCompatActivity {
+public class Bar extends AppCompatActivity {
 
     RequestQueue requestQueue;
 
@@ -35,6 +36,8 @@ public class BarOrders extends AppCompatActivity {
     private String category_url = "http://5.186.68.226:8000/category-list/?format=json";
 
     int drinkId;
+    boolean startup = false;
+    boolean startupDone = false;
 
     ArrayList<MenuItem_Class> menuItems;
     ArrayList<Order_Class> orders;
@@ -60,13 +63,13 @@ public class BarOrders extends AppCompatActivity {
 
                     }
                 } catch (Exception w) {
-                    Toast.makeText(BarOrders.this, w.getMessage(), Toast.LENGTH_LONG);
+                    Toast.makeText(Bar.this, w.getMessage(), Toast.LENGTH_LONG);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(BarOrders.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Bar.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -85,13 +88,13 @@ public class BarOrders extends AppCompatActivity {
 
                     }
                 } catch (Exception w) {
-                    Toast.makeText(BarOrders.this, w.getMessage(), Toast.LENGTH_LONG);
+                    Toast.makeText(Bar.this, w.getMessage(), Toast.LENGTH_LONG);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(BarOrders.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Bar.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -111,13 +114,13 @@ public class BarOrders extends AppCompatActivity {
 
                     }
                 } catch (Exception w) {
-                    Toast.makeText(BarOrders.this, w.getMessage(), Toast.LENGTH_LONG);
+                    Toast.makeText(Bar.this, w.getMessage(), Toast.LENGTH_LONG);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(BarOrders.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Bar.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -136,13 +139,13 @@ public class BarOrders extends AppCompatActivity {
 
                     }
                 } catch (Exception w) {
-                    Toast.makeText(BarOrders.this, w.getMessage(), Toast.LENGTH_LONG);
+                    Toast.makeText(Bar.this, w.getMessage(), Toast.LENGTH_LONG);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(BarOrders.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Bar.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -161,13 +164,13 @@ public class BarOrders extends AppCompatActivity {
 
                     }
                 } catch (Exception w) {
-                    Toast.makeText(BarOrders.this, w.getMessage(), Toast.LENGTH_LONG);
+                    Toast.makeText(Bar.this, w.getMessage(), Toast.LENGTH_LONG);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(BarOrders.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Bar.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -181,7 +184,7 @@ public class BarOrders extends AppCompatActivity {
     }
     public void putIntoMenuitems(int id, String name, int catId){
         if (catId == drinkId){
-            MenuItem_Class menuItem = new MenuItem_Class(id, name);
+            MenuItem_Class menuItem = new MenuItem_Class(id, name, catId);
             menuItems.add(menuItem);
         }
     }
@@ -198,11 +201,72 @@ public class BarOrders extends AppCompatActivity {
         orderItems.add(orderItem);
     }
 
+    //TODO
+    public void statusLists(){
+        String fullOrder = "";
+        for (int i = 0; i < orders.size(); i++){
+            if (orders.get(i).status_Id == 1){
+                fullOrder = addItemToOrder(orders.get(i).id);
+                orders.get(i).fullOrder = fullOrder;
+                received.add(fullOrder);
+            }
+            else if(orders.get(i).status_Id == 2){
+                fullOrder = addItemToOrder(orders.get(i).id);
+                orders.get(i).fullOrder = fullOrder;
+                preparing.add(fullOrder);
+            }
+            else if(orders.get(i).status_Id == 3){
+                fullOrder = addItemToOrder(orders.get(i).id);
+                orders.get(i).fullOrder = fullOrder;
+                awaiting.add(fullOrder);
+            }
+            else if(orders.get(i).status_Id == 4){
+                fullOrder = addItemToOrder(orders.get(i).id);
+                orders.get(i).fullOrder = fullOrder;
+                done.add(fullOrder);
+            }
+
+        }
+    }
+    public void updateView(){
+        ListView awaitingList = (ListView) findViewById(R.id.barAwaitingList);
+        ListView workingList = (ListView) findViewById(R.id.barWorkingList);
+        ListView receivedList = (ListView) findViewById(R.id.barRecievedList);
+        receiveAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, received);
+        workingAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, preparing);
+        awaitingAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, done);
+        awaitingList.setAdapter(awaitingAdapter);
+        workingList.setAdapter(workingAdapter);
+        receivedList.setAdapter(receiveAdapter);
+    }
+
+    public void manualUpdate(View view){
+        statusLists();
+        updateView();
+    }
+
+    public String addItemToOrder(int orderId){
+        String items = String.valueOf(orderId) + ": ";
+        int menuItem = 0;
+        for (int i = 0; i < orderItems.size(); i++){
+            if (orderItems.get(i).order_Id == orderId){
+                menuItem = orderItems.get(i).menuItem_Id;
+                for (int e = 0; e < menuItems.size(); e++){
+                    if (menuItems.get(e).id == menuItem){
+                        items = items + menuItems.get(e).name + " - ";
+                    }
+                }
+            }
+        }
+        return items;
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bar_orders);
+        setContentView(R.layout.activity_bar);
+
         requestQueue = Volley.newRequestQueue(this);
 
         orders = new ArrayList<>();
@@ -214,11 +278,11 @@ public class BarOrders extends AppCompatActivity {
         awaiting = new ArrayList<>();
         done = new ArrayList<>();
 
+
         getCategory();
         getOrders();
         getStatus();
         getOrderItems();
         getMenuItems();
-
     }
 }

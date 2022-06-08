@@ -70,9 +70,9 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         getOrders();
         getOrderItems();
 
-        ListView receivedView = (ListView) findViewById(R.id.barRecievedListId);
-        ListView doingView = (ListView) findViewById(R.id.barWorkingListId);
-        ListView awaitingView = (ListView) findViewById(R.id.barAwaitingListId);
+        ListView receivedView = (ListView) findViewById(R.id.RecievedListId);
+        ListView doingView = (ListView) findViewById(R.id.WorkingListId);
+        ListView awaitingView = (ListView) findViewById(R.id.AwaitingListId);
         receivedView.setClickable(true);
         doingView.setClickable(true);
         awaitingView.setClickable(true);
@@ -301,9 +301,9 @@ public class Kitchen_Order_Two extends AppCompatActivity {
     }
 
     public void updateView(){
-        ListView awaitingList = (ListView) findViewById(R.id.barAwaitingListId);
-        ListView workingList = (ListView) findViewById(R.id.barWorkingListId);
-        ListView receivedList = (ListView) findViewById(R.id.barRecievedListId);
+        ListView awaitingList = (ListView) findViewById(R.id.AwaitingListId);
+        ListView workingList = (ListView) findViewById(R.id.WorkingListId);
+        ListView receivedList = (ListView) findViewById(R.id.RecievedListId);
         receiveAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, received);
         workingAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, preparing);
         awaitingAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, done);

@@ -4,58 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BarOrders">
+    tools:context=".Bar">
+
+    <ListView
+        android:id="@+id/barRecievedList"
+        android:layout_width="357dp"
+        android:layout_height="652dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="112dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="44dp"
         android:text="Orders Waiting"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="832dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="912dp"
+        android:layout_marginTop="44dp"
         android:text="Orders Awaiting Pickup"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="444dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="480dp"
+        android:layout_marginTop="44dp"
         android:text="Working on Orders:"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/barUpdateBTN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Update"
-        android:onClick=""
-        app:layout_constraintEnd_toEndOf="parent"
+    <ListView
+        android:id="@+id/barWorkingList"
+        android:layout_width="357dp"
+        android:layout_height="652dp"
+        android:layout_marginStart="472dp"
+        android:layout_marginTop="112dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/barAwaitingList"
+        android:layout_width="357dp"
+        android:layout_height="652dp"
+        android:layout_marginStart="904dp"
+        android:layout_marginTop="120dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/button8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="713dp"
-        tools:layout_editor_absoluteY="13dp" />
-
+        android:onClick="manualUpdate"
+        android:text="Update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
