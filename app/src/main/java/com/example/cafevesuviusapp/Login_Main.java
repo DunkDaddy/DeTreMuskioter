@@ -54,6 +54,10 @@ public class Login_Main extends AppCompatActivity {
         Intent intent = new Intent(Login_Main.this, Kitchen_Order_Two.class);
         startActivity(intent);
     }
+    public void test(View view){
+        Intent intent = new Intent(Login_Main.this, test.class);
+        startActivity(intent);
+    }
 
 
 }

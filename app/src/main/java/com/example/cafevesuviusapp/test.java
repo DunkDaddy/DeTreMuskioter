@@ -1,6 +1,7 @@
 package com.example.cafevesuviusapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,12 +11,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.Calendar;
 
-
-public class TestingCustomer extends AppCompatActivity {
+public class test extends AppCompatActivity {
 
     // Logger for this class.
     private static final String TAG = "TestingCustomer";
@@ -38,12 +36,12 @@ public class TestingCustomer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_testing_customers);
-/*
+        setContentView(R.layout.activity_test);
+
         // Shortcuts to input fields.
-        mNameText = (EditText) findViewById(R.id.userNameInput);
-        mDobPicker = (DatePicker) findViewById(R.id.dateOfBirthInput);
-        mEmailText = (EditText) findViewById(R.id.emailInput);
+        mNameText = (EditText) findViewById(R.id.userNameInput2);
+        mDobPicker = (DatePicker) findViewById(R.id.dateOfBirthInput2);
+        mEmailText = (EditText) findViewById(R.id.emailInput2);
 
         // Setup field validators.
         mEmailValidator = new EmailValidator();
@@ -55,10 +53,7 @@ public class TestingCustomer extends AppCompatActivity {
 
         // Fill input fields from data retrieved from the SharedPreferences.
         populateUi();
-
- */
     }
-
 
     private void populateUi() {
         SharedPreferenceEntry sharedPreferenceEntry;
