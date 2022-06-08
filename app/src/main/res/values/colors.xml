@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="received">#FF6347</color>
+    <color name="await">#00d024</color>
+    <color name="working">#ffa500</color>
+    <color name="listView1Background">#2B2D42</color>
+    <color name="listView1TextColor">#EDF2F4</color>
+    <color name="listView2Background">#009FB7</color>
+    <color name="listView2TextColor">#8D818C</color>
 </resources>

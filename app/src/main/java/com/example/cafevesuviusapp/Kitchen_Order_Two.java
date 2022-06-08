@@ -308,21 +308,21 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         ListView awaitingList = (ListView) findViewById(R.id.awaitingListId);
         ListView workingList = (ListView) findViewById(R.id.workingListId);
         ListView receivedList = (ListView) findViewById(R.id.recievedListId);
-        receiveAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, received);
-        workingAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, preparing);
-        awaitingAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, done);
+        receiveAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, received);
+        workingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, preparing);
+        awaitingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, done);
         awaitingList.setAdapter(awaitingAdapter);
         workingList.setAdapter(workingAdapter);
         receivedList.setAdapter(receiveAdapter);
     }
 
     public String addItemToOrder(int orderId){
-        String items = String.valueOf(orderId) + ": ";
+        String items = String.valueOf(orderId) + ": \n";
         int menuItem = 0;
         for (int i = 0; i < orderItems.size(); i++){
             if (orderItems.get(i).order_Id == orderId){
                 menuItem = orderItems.get(i).menuItem_Id;
-                items = items + menuItems.get(menuItem).name + " - ";
+                items = items + menuItems.get(menuItem).name +"\n";
             }
         }
         //orders.get(orderId).fullOrder = items;
@@ -344,9 +344,9 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         updateView();
     }
 
-    private void updateOrder(int id) {
-        int tableId;
-        int statusId;
+   /* private void updateOrder(int id) {
+        int tableId = 0;
+        int statusId = 0;
         for (Order_Class item : orders)
         {
             if (item.id == id) {
@@ -389,6 +389,8 @@ public class Kitchen_Order_Two extends AppCompatActivity {
 
     }
 
+    */
+
     public void editOrderList(int id, int tableId, int statusId) {
         int x = 0;
         for ( int i = 0; i<orders.size(); i++) {
@@ -397,5 +399,6 @@ public class Kitchen_Order_Two extends AppCompatActivity {
             }
         }
     }
+
 
 }
