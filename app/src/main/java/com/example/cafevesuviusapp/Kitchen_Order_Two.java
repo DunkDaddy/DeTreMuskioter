@@ -16,7 +16,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import com.example.cafevesuviusapp.Classes.MenuItem_Class;
@@ -25,13 +24,10 @@ import com.example.cafevesuviusapp.Classes.Order_Class;
 import com.example.cafevesuviusapp.Classes.Status_Class;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Kitchen_Order_Two extends AppCompatActivity {
 
@@ -74,9 +70,9 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         getOrders();
         getOrderItems();
 
-        ListView receivedView = (ListView) findViewById(R.id.recievedListId);
-        ListView doingView = (ListView) findViewById(R.id.workingListId);
-        ListView awaitingView = (ListView) findViewById(R.id.awaitingListId);
+        ListView receivedView = (ListView) findViewById(R.id.barRecievedListId);
+        ListView doingView = (ListView) findViewById(R.id.barWorkingListId);
+        ListView awaitingView = (ListView) findViewById(R.id.barAwaitingListId);
         receivedView.setClickable(true);
         doingView.setClickable(true);
         awaitingView.setClickable(true);
@@ -305,9 +301,9 @@ public class Kitchen_Order_Two extends AppCompatActivity {
     }
 
     public void updateView(){
-        ListView awaitingList = (ListView) findViewById(R.id.awaitingListId);
-        ListView workingList = (ListView) findViewById(R.id.workingListId);
-        ListView receivedList = (ListView) findViewById(R.id.recievedListId);
+        ListView awaitingList = (ListView) findViewById(R.id.barAwaitingListId);
+        ListView workingList = (ListView) findViewById(R.id.barWorkingListId);
+        ListView receivedList = (ListView) findViewById(R.id.barRecievedListId);
         receiveAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, received);
         workingAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, preparing);
         awaitingAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, done);
@@ -344,9 +340,9 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         updateView();
     }
 
-    private void updateOrder(int id) {
-        int tableId;
-        int statusId;
+    /*private void updateOrder(int id) {
+        int tableId = 0;
+        int statusId = 0;
         for (Order_Class item : orders)
         {
             if (item.id == id) {
@@ -387,7 +383,7 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
 
-    }
+    }*/
 
     public void editOrderList(int id, int tableId, int statusId) {
         int x = 0;

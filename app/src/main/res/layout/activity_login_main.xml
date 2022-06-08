@@ -60,4 +60,15 @@
         android:onClick="gotoTable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/MainMenu_SignOutBTN" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="264dp"
+        android:layout_marginEnd="60dp"
+        android:onClick="gotoBarOrder"
+        android:text="Bar Orders"
+        app:layout_constraintEnd_toStartOf="@+id/Kitchen_Orders_Butoon"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

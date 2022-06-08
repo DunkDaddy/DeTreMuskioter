@@ -55,5 +55,10 @@ public class Login_Main extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void gotoBarOrder(View view){
+        Intent intent = new Intent(Login_Main.this, BarOrders.class);
+        startActivity(intent);
+    }
+
 
 }
