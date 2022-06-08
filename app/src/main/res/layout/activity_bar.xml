@@ -8,19 +8,20 @@
 
     <ListView
         android:id="@+id/barRecievedList"
-        android:layout_width="357dp"
-        android:layout_height="652dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="112dp"
+        android:layout_width="325dp"
+        android:layout_height="600dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/textView11"
+        android:background="@color/received" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="100dp"
         android:text="Orders Waiting"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,41 +31,43 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="912dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
         android:text="Orders Awaiting Pickup"
         android:textSize="34sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/divider2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="480dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="100dp"
         android:text="Working on Orders:"
         android:textSize="34sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/divider"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/barWorkingList"
-        android:layout_width="357dp"
-        android:layout_height="652dp"
-        android:layout_marginStart="472dp"
-        android:layout_marginTop="112dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="325dp"
+        android:layout_height="600dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toEndOf="@id/divider"
+        app:layout_constraintTop_toBottomOf="@id/textView13"
+        android:background="@color/working" />
 
     <ListView
         android:id="@+id/barAwaitingList"
-        android:layout_width="357dp"
-        android:layout_height="652dp"
-        android:layout_marginStart="904dp"
-        android:layout_marginTop="120dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="325dp"
+        android:layout_height="600dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toEndOf="@id/divider2"
+        app:layout_constraintTop_toBottomOf="@id/textView12"
+        android:background="@color/await" />
 
     <Button
         android:id="@+id/button8"
@@ -74,4 +77,23 @@
         android:text="Update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:id="@+id/divider"
+        android:layout_width="5dp"
+        android:layout_height="798dp"
+        android:background="@color/black"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toEndOf="@id/barRecievedList"
+        tools:layout_editor_absoluteX="369dp"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="5dp"
+        android:layout_height="798dp"
+        android:layout_marginStart="20dp"
+        android:background="@color/black"
+        app:layout_constraintStart_toEndOf="@id/barWorkingList"
+        tools:layout_editor_absoluteX="717dp"
+        tools:layout_editor_absoluteY="1dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
