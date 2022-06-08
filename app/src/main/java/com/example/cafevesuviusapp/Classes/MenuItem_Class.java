@@ -8,8 +8,6 @@ public class MenuItem_Class {
     public Double price;
     public String description;
     public int category_id;
-    public List<Ingridients_Class> dish_Ingredients;
-    public List<Ingridients_Class> dish_Extra_Ingredients;
 
     public int getID(){
         return id;
@@ -18,11 +16,10 @@ public class MenuItem_Class {
         this.id = newId;
     }
 
-    public void addIngredient(Ingridients_Class ingredient) {
-        dish_Extra_Ingredients.add(ingredient);
-    }
-    public void removeIngredient(Ingridients_Class ingredient){
-        dish_Ingredients.remove(ingredient);
+
+    public MenuItem_Class(int id, String name){
+        this.id = id;
+        this.name = name;
     }
 
     public MenuItem_Class(int id, String name, Double price, String description, int category_id){
