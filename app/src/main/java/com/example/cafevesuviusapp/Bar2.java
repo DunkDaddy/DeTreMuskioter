@@ -243,14 +243,14 @@ public class Bar2 extends AppCompatActivity {
     }
 
     public String addItemToOrder(int orderId){
-        String items = String.valueOf(orderId) + ": ";
+        String items = String.valueOf(orderId) + ":\n";
         int menuItem = 0;
         for (int i = 0; i < orderItems.size(); i++){
             if (orderItems.get(i).order_Id == orderId){
                 menuItem = orderItems.get(i).menuItem_Id;
                 for (int e = 0; e < menuItems.size(); e++){
                     if (menuItems.get(e).id == menuItem){
-                        items = items + menuItems.get(e).name + " - ";
+                        items = items + menuItems.get(e).name + "\n";
                     }
                 }
             }

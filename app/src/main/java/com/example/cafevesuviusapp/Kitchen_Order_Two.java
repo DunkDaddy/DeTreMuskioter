@@ -313,12 +313,12 @@ public class Kitchen_Order_Two extends AppCompatActivity {
     }
 
     public String addItemToOrder(int orderId){
-        String items = String.valueOf(orderId) + ": ";
+        String items = String.valueOf(orderId) + ":\n";
         int menuItem = 0;
         for (int i = 0; i < orderItems.size(); i++){
             if (orderItems.get(i).order_Id == orderId){
                 menuItem = orderItems.get(i).menuItem_Id;
-                items = items + menuItems.get(menuItem).name + " - ";
+                items = items + menuItems.get(menuItem).name + "\n";
             }
         }
         //orders.get(orderId).fullOrder = items;
