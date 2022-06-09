@@ -33,12 +33,13 @@ public class Kitchen_Order_Two extends AppCompatActivity {
 
     RequestQueue requestQueue;
 
-
     private String orders_url = "http://5.186.68.226:8000/order-list/?format=json";
     private String menu_url = "http://5.186.68.226:8000/menuitems-list/?format=json";
     private String orderItems_url = "http://5.186.68.226:8000/orderitems-list/?format=json";
     private String status_url = "http://5.186.68.226:8000/status-list/?format=json";
-    private String updateOrder_url = "http://5.186.68.226:8000/order-update/";
+    private String category_url = "http://5.186.68.226:8000/category-list/?format=json";
+
+    int drinkId;
 
     ArrayList<MenuItem_Class> menuItems;
     ArrayList<Order_Class> orders;
@@ -48,85 +49,6 @@ public class Kitchen_Order_Two extends AppCompatActivity {
 
     ArrayAdapter<String> receiveAdapter, workingAdapter, awaitingAdapter;
 
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kitchen_order_two);
-        requestQueue = Volley.newRequestQueue(this);
-        orders = new ArrayList<>();
-        orderItems = new ArrayList<>();
-        menuItems = new ArrayList<>();
-        statusArray = new ArrayList<>();
-        received = new ArrayList<>();
-        preparing = new ArrayList<>();
-        awaiting = new ArrayList<>();
-        done = new ArrayList<>();
-
-        getMenuItems();
-        getStatus();
-        getOrders();
-        getOrderItems();
-
-        ListView receivedView = (ListView) findViewById(R.id.RecievedListId);
-        ListView doingView = (ListView) findViewById(R.id.WorkingListId);
-        ListView awaitingView = (ListView) findViewById(R.id.AwaitingListId);
-        receivedView.setClickable(true);
-        doingView.setClickable(true);
-        awaitingView.setClickable(true);
-        receivedView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String order = receivedView.getItemAtPosition(position).toString();
-                int orderId = findOrder(order);
-                String currentStatus = "";
-                for (Order_Class item : orders)
-                {
-                    if (item.id == orderId)
-                    {
-                        currentStatus = statusArray.get(item.status_Id).statusName;
-                    }
-                }
-                //String currentStatus = statusArray.get(orders.get(orderId).status_Id).statusName;
-                nextStatus(order, orderId, currentStatus);
-            }
-        });
-        doingView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String order = doingView.getItemAtPosition(position).toString();
-                int orderId = findOrder(order);
-                String currentStatus = "";
-                for (Order_Class item : orders)
-                {
-                    if (item.id == orderId)
-                    {
-                        currentStatus = statusArray.get(item.status_Id).statusName;
-                    }
-                }
-                nextStatus(order, orderId, currentStatus);
-            }
-        });
-        awaitingView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String order = doingView.getItemAtPosition(position).toString();
-                int orderId = findOrder(order);
-                String currentStatus = "";
-                for (Order_Class item : orders)
-                {
-                    if (item.id == orderId)
-                    {
-                        currentStatus = statusArray.get(item.status_Id).statusName;
-                    }
-                }
-                nextStatus(order, orderId, currentStatus);
-            }
-        });
-
-    }
 
     private void getMenuItems(){
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, menu_url, null, new Response.Listener<JSONArray>() {
@@ -138,7 +60,8 @@ public class Kitchen_Order_Two extends AppCompatActivity {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         int id = jsonObject.getInt("id");
                         String name = jsonObject.getString("name");
-                        putIntoMenuitems(id, name);
+                        int catId = jsonObject.getInt("categoryId");
+                        putIntoMenuitems(id, name, catId);
 
                     }
                 } catch (Exception w) {
@@ -229,15 +152,47 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         });
         requestQueue.add(jsonArrayRequest);
     }
+    private void getCategory(){
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, category_url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONArray jsonArray = response;
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        int id = jsonObject.getInt("id");
+                        String name = jsonObject.getString("name");
+                        getCategoryId(id, name);
 
-    public void putIntoMenuitems(int id, String name){
-        MenuItem_Class menuItem = new MenuItem_Class(id, name);
-        menuItems.add(menuItem);
+                    }
+                } catch (Exception w) {
+                    Toast.makeText(Kitchen_Order_Two.this, w.getMessage(), Toast.LENGTH_LONG);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Kitchen_Order_Two.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    public void getCategoryId(int id, String category){
+        if (category.matches("Drinks")){
+            drinkId = id;
+            Toast.makeText(this, String.valueOf(drinkId), Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void putIntoMenuitems(int id, String name, int catId){
+        if (catId != drinkId){
+            MenuItem_Class menuItem = new MenuItem_Class(id, name, catId);
+            menuItems.add(menuItem);
+        }
     }
     public void putIntoStatus(int id, String name){
         Status_Class newStatus = new Status_Class(id, name);
         statusArray.add(newStatus);
-        Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
     }
     public void putIntoOrders(int id, int statusId, int tableId){
         Order_Class order = new Order_Class(id, statusId, tableId);
@@ -248,12 +203,6 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         orderItems.add(orderItem);
     }
 
-    public void clearStatusLists(){
-        received.clear();
-        preparing.clear();
-        awaiting.clear();
-        done.clear();
-    }
     public void statusLists(){
         String fullOrder = "";
         for (int i = 0; i < orders.size(); i++){
@@ -277,29 +226,9 @@ public class Kitchen_Order_Two extends AppCompatActivity {
                 orders.get(i).fullOrder = fullOrder;
                 done.add(fullOrder);
             }
+
         }
     }
-
-    public void nextStatus(String fullOrder, int orderId, String status){
-        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which){
-                    case DialogInterface.BUTTON_POSITIVE:
-                        break;
-
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        break;
-                }
-            }
-        };
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(fullOrder).setPositiveButton("Move order to " + status + "?", dialogListener).setNegativeButton("Cancel", dialogListener).show();
-
-    }
-
     public void updateView(){
         ListView awaitingList = (ListView) findViewById(R.id.AwaitingListId);
         ListView workingList = (ListView) findViewById(R.id.WorkingListId);
@@ -312,86 +241,51 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         receivedList.setAdapter(receiveAdapter);
     }
 
+    public void manualUpdate(View view){
+        statusLists();
+        updateView();
+    }
+
     public String addItemToOrder(int orderId){
         String items = String.valueOf(orderId) + ":\n";
         int menuItem = 0;
         for (int i = 0; i < orderItems.size(); i++){
             if (orderItems.get(i).order_Id == orderId){
                 menuItem = orderItems.get(i).menuItem_Id;
-                items = items + menuItems.get(menuItem).name + "\n";
+                for (int e = 0; e < menuItems.size(); e++){
+                    if (menuItems.get(e).id == menuItem){
+                        items = items + menuItems.get(e).name + "\n";
+                    }
+                }
             }
         }
-        //orders.get(orderId).fullOrder = items;
         return items;
 
     }
-    public int findOrder(String fullOrder){
-        int orderId = 0;
-        for (int i = 0; i < orders.size(); i++){
-            if (orders.get(i).fullOrder.matches(fullOrder)){
-                orderId = orders.get(i).id;
-            }
-        }
-        return orderId;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_kitchen_order_two);
+        requestQueue = Volley.newRequestQueue(this);
+
+        orders = new ArrayList<>();
+        orderItems = new ArrayList<>();
+        menuItems = new ArrayList<>();
+        statusArray = new ArrayList<>();
+        received = new ArrayList<>();
+        preparing = new ArrayList<>();
+        awaiting = new ArrayList<>();
+        done = new ArrayList<>();
+
+
+        getCategory();
+        getOrders();
+        getStatus();
+        getOrderItems();
+        getMenuItems();
+
     }
 
-    public void manualViewUpdate(View view){
-        statusLists();
-        updateView();
-    }
-
-    /*private void updateOrder(int id) {
-        int tableId = 0;
-        int statusId = 0;
-        for (Order_Class item : orders)
-        {
-            if (item.id == id) {
-                tableId = item.table_Id;
-                statusId = item.status_Id + 1;
-                break;
-            }
-        }
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, updateOrder_url + id + "/", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(Kitchen_Order_Two.this, "Order Updated", Toast.LENGTH_SHORT).show();
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    int newTableId = jsonObject.getInt("tableId");
-                    int newStatusId = jsonObject.getInt("statusId");
-                    editOrderList(id, newTableId, newStatusId);
-
-                }catch (JSONException jE){
-                    jE.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Kitchen_Order_Two.this, "Fail to get response = " + error, Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("tableId", String.valueOf(tableId));
-                params.put("statusId", String.valueOf(statusId));
-
-                return params;
-            }
-        };
-        requestQueue.add(stringRequest);
-
-
-    }*/
-
-    public void editOrderList(int id, int tableId, int statusId) {
-        int x = 0;
-        for ( int i = 0; i<orders.size(); i++) {
-            if(orders.get(i).id == id) {
-
-            }
-        }
-    }
 
 }
