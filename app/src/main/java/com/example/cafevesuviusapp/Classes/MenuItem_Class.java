@@ -3,7 +3,7 @@ package com.example.cafevesuviusapp.Classes;
 import java.util.List;
 
 public class MenuItem_Class {
-    private int id;
+    public int id;
     public String name;
     public Double price;
     public String description;
@@ -20,6 +20,11 @@ public class MenuItem_Class {
     public MenuItem_Class(int id, String name){
         this.id = id;
         this.name = name;
+    }
+    public MenuItem_Class(int id, String name, int catId){
+        this.id = id;
+        this.name = name;
+        this.category_id = catId;
     }
 
     public MenuItem_Class(int id, String name, Double price, String description, int category_id){

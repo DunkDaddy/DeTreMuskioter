@@ -16,7 +16,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import com.example.cafevesuviusapp.Classes.MenuItem_Class;
@@ -25,13 +24,10 @@ import com.example.cafevesuviusapp.Classes.Order_Class;
 import com.example.cafevesuviusapp.Classes.Status_Class;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Kitchen_Order_Two extends AppCompatActivity {
 
@@ -74,9 +70,9 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         getOrders();
         getOrderItems();
 
-        ListView receivedView = (ListView) findViewById(R.id.recievedListId);
-        ListView doingView = (ListView) findViewById(R.id.workingListId);
-        ListView awaitingView = (ListView) findViewById(R.id.awaitingListId);
+        ListView receivedView = (ListView) findViewById(R.id.RecievedListId);
+        ListView doingView = (ListView) findViewById(R.id.WorkingListId);
+        ListView awaitingView = (ListView) findViewById(R.id.AwaitingListId);
         receivedView.setClickable(true);
         doingView.setClickable(true);
         awaitingView.setClickable(true);
@@ -305,24 +301,24 @@ public class Kitchen_Order_Two extends AppCompatActivity {
     }
 
     public void updateView(){
-        ListView awaitingList = (ListView) findViewById(R.id.awaitingListId);
-        ListView workingList = (ListView) findViewById(R.id.workingListId);
-        ListView receivedList = (ListView) findViewById(R.id.recievedListId);
-        receiveAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, received);
-        workingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, preparing);
-        awaitingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, done);
+        ListView awaitingList = (ListView) findViewById(R.id.AwaitingListId);
+        ListView workingList = (ListView) findViewById(R.id.WorkingListId);
+        ListView receivedList = (ListView) findViewById(R.id.RecievedListId);
+        receiveAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, received);
+        workingAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, preparing);
+        awaitingAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, done);
         awaitingList.setAdapter(awaitingAdapter);
         workingList.setAdapter(workingAdapter);
         receivedList.setAdapter(receiveAdapter);
     }
 
     public String addItemToOrder(int orderId){
-        String items = String.valueOf(orderId) + ": \n";
+        String items = String.valueOf(orderId) + ": ";
         int menuItem = 0;
         for (int i = 0; i < orderItems.size(); i++){
             if (orderItems.get(i).order_Id == orderId){
                 menuItem = orderItems.get(i).menuItem_Id;
-                items = items + menuItems.get(menuItem).name +"\n";
+                items = items + menuItems.get(menuItem).name + " - ";
             }
         }
         //orders.get(orderId).fullOrder = items;
@@ -344,7 +340,7 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         updateView();
     }
 
-   /* private void updateOrder(int id) {
+    /*private void updateOrder(int id) {
         int tableId = 0;
         int statusId = 0;
         for (Order_Class item : orders)
@@ -387,9 +383,7 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
 
-    }
-
-    */
+    }*/
 
     public void editOrderList(int id, int tableId, int statusId) {
         int x = 0;
@@ -399,6 +393,5 @@ public class Kitchen_Order_Two extends AppCompatActivity {
             }
         }
     }
-
 
 }
