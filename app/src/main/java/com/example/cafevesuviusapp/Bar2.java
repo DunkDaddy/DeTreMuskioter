@@ -225,23 +225,6 @@ public class Bar2 extends AppCompatActivity {
 
         }
     }
-    public void updateView(){
-        ListView awaitingList = (ListView) findViewById(R.id.barAwaitingList);
-        ListView workingList = (ListView) findViewById(R.id.barWorkingList);
-        ListView receivedList = (ListView) findViewById(R.id.barRecievedList);
-        receiveAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, received);
-        workingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, preparing);
-        awaitingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, done);
-        awaitingList.setAdapter(awaitingAdapter);
-        workingList.setAdapter(workingAdapter);
-        receivedList.setAdapter(receiveAdapter);
-    }
-
-    public void manualUpdate(View view){
-        statusLists();
-        updateView();
-    }
-
     public String addItemToOrder(int orderId){
         String items = String.valueOf(orderId) + ":\n";
         int menuItem = 0;
@@ -258,6 +241,24 @@ public class Bar2 extends AppCompatActivity {
         return items;
 
     }
+    public void updateView(){
+        ListView awaitingList = (ListView) findViewById(R.id.barAwaitingList);
+        ListView workingList = (ListView) findViewById(R.id.barWorkingList);
+        ListView receivedList = (ListView) findViewById(R.id.barRecievedList);
+        receiveAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, received);
+        workingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, preparing);
+        awaitingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, awaiting);
+        awaitingList.setAdapter(awaitingAdapter);
+        workingList.setAdapter(workingAdapter);
+        receivedList.setAdapter(receiveAdapter);
+    }
+
+    public void manualUpdate(View view){
+        statusLists();
+        updateView();
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -235,7 +235,7 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         ListView receivedList = (ListView) findViewById(R.id.RecievedListId);
         receiveAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, received);
         workingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, preparing);
-        awaitingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, done);
+        awaitingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, awaiting);
         awaitingList.setAdapter(awaitingAdapter);
         workingList.setAdapter(workingAdapter);
         receivedList.setAdapter(receiveAdapter);
