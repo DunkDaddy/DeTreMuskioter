@@ -2,6 +2,7 @@ package com.example.cafevesuviusapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.widget.Button;
 import android.view.View;
 import android.widget.ListView;
@@ -49,7 +50,8 @@ public class Order extends AppCompatActivity {
         setContentView(R.layout.activity_order);
         newOrder.id = 0;
         newOrder.waiter_Id = 1;
-        newOrder.table_Id = 1;
+        newOrder.table_Id = 11;
+        newOrder.status_Id = 1;
         orderMenuItems = new ArrayList<>();
         orderMenu = findViewById(R.id.order_menu);
         ordering = findViewById(R.id.sendOrder);
@@ -58,7 +60,7 @@ public class Order extends AppCompatActivity {
             public void onClick(View view) {
                 if (newOrder.id == 0)
                 {
-                    postOrder(Integer.toString(newOrder.table_Id));
+                    postOrder(Integer.toString(newOrder.table_Id), Integer.toString(newOrder.status_Id));
                 }
             }
         });
@@ -111,8 +113,11 @@ public class Order extends AppCompatActivity {
         {
             newOrder.dishes.add(orderMenuItems.get(menuItemId));
         }
+        AlertDialog.Builder builder = new AlertDialog.Builder(Order.this);
+        builder.setMessage(orderMenuItems.get(menuItemId).name);
+        builder.create().show();
     }
-    private void postOrder(String tableID) {
+    private void postOrder(String tableID, String statusID) {
         StringRequest request = new StringRequest(Request.Method.POST, server_url + orderCreateUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -142,6 +147,7 @@ public class Order extends AppCompatActivity {
             protected  Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("tableId", tableID);
+                params.put("statusId", statusID);
                 return params;
             }
         };
