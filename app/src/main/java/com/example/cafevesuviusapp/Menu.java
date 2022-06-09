@@ -27,7 +27,7 @@ import java.util.List;
 
 public class Menu extends AppCompatActivity {
 
-    private String server_url = "http://10.0.2.2:8000/tables-list/?format=json";
+    private String server_url = "http://5.186.68.226:8000/menuitems-list/?format=json";
     RequestQueue requestQueue;
     List<MenuItem_Class> burgerMenu, appetizerMenu, sandwichMenu, pastaMenu, saladMenu, drinkMenu;
     MenuAdapter burgerAdapter, appetizersAdapter, sandwichAdapter, pastaAdapter, saladAdapter, drinkAdapter;
@@ -83,35 +83,33 @@ public class Menu extends AppCompatActivity {
                         // /category-list/
                         switch (categoryId)
                         {
-
                             //Burger
                             case 1:
                                 burgerMenu.add(item);
                                 break;
-                            //Drink
-                            case 2:
-                                drinkMenu.add(item);
-                                break;
-                            //Appetizer
-                            case 3:
-                                appetizerMenu.add(item);
-                                break;
-                            //Sandwich
-                            case 4:
-                                sandwichMenu.add(item);
-                                break;
                             //Pasta
-                            case 5:
+                            case 2:
                                 pastaMenu.add(item);
                                 break;
                             //Salad
-                            case 6:
+                            case 3:
                                 saladMenu.add(item);
+                                break;
+                            //Drink
+                            case 4:
+                                drinkMenu.add(item);
+                                break;
+                            //Appetizer
+                            case 5:
+                                appetizerMenu.add(item);
+                                break;
+                            //Sandwich
+                            case 6:
+                                sandwichMenu.add(item);
                                 break;
                             default:
                                 break;
                         }
-
                     }
                     burgerAdapter.notifyDataSetChanged();
                     drinkAdapter.notifyDataSetChanged();
