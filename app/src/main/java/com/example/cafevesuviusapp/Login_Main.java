@@ -60,7 +60,7 @@ public class Login_Main extends AppCompatActivity {
     }
 
     public void gotoBarOrder(View view){
-        Intent intent = new Intent(Login_Main.this, Bar.class);
+        Intent intent = new Intent(Login_Main.this, Bar2.class);
         startActivity(intent);
     }
 

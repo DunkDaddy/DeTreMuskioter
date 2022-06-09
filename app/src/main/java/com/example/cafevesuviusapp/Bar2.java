@@ -25,7 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bar extends AppCompatActivity {
+public class Bar2 extends AppCompatActivity {
 
     RequestQueue requestQueue;
 
@@ -61,13 +61,13 @@ public class Bar extends AppCompatActivity {
 
                     }
                 } catch (Exception w) {
-                    Toast.makeText(Bar.this, w.getMessage(), Toast.LENGTH_LONG);
+                    Toast.makeText(Bar2.this, w.getMessage(), Toast.LENGTH_LONG);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Bar.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Bar2.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -86,13 +86,13 @@ public class Bar extends AppCompatActivity {
 
                     }
                 } catch (Exception w) {
-                    Toast.makeText(Bar.this, w.getMessage(), Toast.LENGTH_LONG);
+                    Toast.makeText(Bar2.this, w.getMessage(), Toast.LENGTH_LONG);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Bar.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Bar2.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -112,13 +112,13 @@ public class Bar extends AppCompatActivity {
 
                     }
                 } catch (Exception w) {
-                    Toast.makeText(Bar.this, w.getMessage(), Toast.LENGTH_LONG);
+                    Toast.makeText(Bar2.this, w.getMessage(), Toast.LENGTH_LONG);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Bar.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Bar2.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -137,13 +137,13 @@ public class Bar extends AppCompatActivity {
 
                     }
                 } catch (Exception w) {
-                    Toast.makeText(Bar.this, w.getMessage(), Toast.LENGTH_LONG);
+                    Toast.makeText(Bar2.this, w.getMessage(), Toast.LENGTH_LONG);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Bar.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Bar2.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -162,13 +162,13 @@ public class Bar extends AppCompatActivity {
 
                     }
                 } catch (Exception w) {
-                    Toast.makeText(Bar.this, w.getMessage(), Toast.LENGTH_LONG);
+                    Toast.makeText(Bar2.this, w.getMessage(), Toast.LENGTH_LONG);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Bar.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Bar2.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -262,7 +262,7 @@ public class Bar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bar);
+        setContentView(R.layout.activity_bar2);
 
         requestQueue = Volley.newRequestQueue(this);
 
