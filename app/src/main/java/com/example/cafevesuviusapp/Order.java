@@ -3,6 +3,8 @@ package com.example.cafevesuviusapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.widget.Button;
 import android.view.View;
 import android.widget.ListView;
@@ -63,9 +65,24 @@ public class Order extends AppCompatActivity {
             public void onClick(View view) {
                 if (newOrder.id == 0)
                 {
-                    postOrder(Integer.toString(newOrder.table_Id), Integer.toString(newOrder.status_Id));
-                    builder.setMessage("Do you want to place the order: " + order);
-                    builder.create().show();
+                    DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    postOrder(Integer.toString(newOrder.table_Id), Integer.toString(newOrder.status_Id));
+                                    Toast.makeText(Order.this, "Order Sent", Toast.LENGTH_SHORT).show();
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    break;
+                            }
+                        }
+                    };
+
+                    builder.setMessage("Place the order: " + order).setPositiveButton("OK", dialogListener).setNegativeButton("Cancel", dialogListener).show();
+                    //builder.setMessage("Do you want to place the order: " + order);
+
                 }
             }
         });
@@ -108,6 +125,7 @@ public class Order extends AppCompatActivity {
         });
         requestQueue.add(jsonArrayRequest);
     }
+
     public void addToOrder(View v) {
         int menuItemId = v.getId();
         if (orderMenuItems.get(menuItemId).category_id == 2)
