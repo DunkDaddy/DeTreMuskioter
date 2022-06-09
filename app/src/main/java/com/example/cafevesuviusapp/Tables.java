@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -42,7 +41,6 @@ import com.example.cafevesuviusapp.Classes.Tables_Class;
 public class Tables extends AppCompatActivity {
 
 
-    String numberTable;
     String number;
     String location;
     String size;
@@ -62,28 +60,6 @@ public class Tables extends AppCompatActivity {
     List<String> tableSizes = new ArrayList<String>();
     ArrayAdapter<String> Locationally, tableAdapter;
 
-    //TODO
-    public void addTableToOrder(int tableId){
-        DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which){
-                    case DialogInterface.BUTTON_POSITIVE:
-
-                        break;
-
-                    case DialogInterface.BUTTON_NEGATIVE:
-
-                        break;
-                }
-            }
-        };
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("").setPositiveButton("", dialogListener).setNegativeButton("", dialogListener).show();
-
-    }
     public String tableAvailability(Boolean availability){
         if (availability == false){
             return "Unavailable";
@@ -96,12 +72,14 @@ public class Tables extends AppCompatActivity {
         }
     }
     public void deleteTableListItem(int id){
+        int x = 0;
         for (int i = 0; i < tableList.size(); i++){
             if (tableList.get(i).id == id){
+                x = tableList.get(i).id;
                 tableList.remove(i);
             }
         }
-        changeList(locationId);
+        changeList(x);
     }
     public void editTableList(int id, int locationId){
         int x = 0;
@@ -140,14 +118,11 @@ public class Tables extends AppCompatActivity {
         setContentView(R.layout.activity_tables);
         number = getIntent().getStringExtra("People");
         TextView test = findViewById(R.id.TableTest);
-        Button addBTN = findViewById(R.id.createTableBtn);
         if (number.matches("")){
             test.setText("");
         }
         else{
             test.setText("Number of People: " + number);
-            numberTable = "";
-            addBTN.setVisibility(View.GONE);
         }
 
 
@@ -163,14 +138,10 @@ public class Tables extends AppCompatActivity {
                     if (table.matches(tableList.get(i).placement)){
                         tableId = tableList.get(i).id;
                         tableSize = tableList.get(i).customerSize;
-                        Toast.makeText(Tables.this, "Yes", Toast.LENGTH_SHORT).show();
                     }
                 }
                 if (number.matches("")){
                     moveTable(table, tableId, tableSize);
-                }
-                else{
-
                 }
             }
         });
@@ -208,18 +179,10 @@ public class Tables extends AppCompatActivity {
         ListView listTest = (ListView) findViewById(R.id.LisviewTest);
         tables.clear();
         for (int i = 0; i < tableList.size(); i++){
-            if (number.matches("")){
-                if (location == tableList.get(i).placementInt){
-                    tables.add("Table: " + String.valueOf(tableList.get(i).id) + " - Size: " + String.valueOf(tableList.get(i).customerSize) + " - Availability :" + tableAvailability(tableList.get(i).avalabilty));
-
-                }
+            if (location == tableList.get(i).placementInt){
+                tables.add("Table: " + String.valueOf(tableList.get(i).id) + " - Size: " + String.valueOf(tableList.get(i).customerSize) + " - Availability :" + tableAvailability(tableList.get(i).avalabilty));
+                //tableList.get(i).placement = String.valueOf(tableList.get(i).id) + " - Size: " + String.valueOf(tableList.get(i).customerSize);
             }
-            else{
-                if (location == tableList.get(i).placementInt && tableList.get(i).avalabilty == true){
-                    tables.add("Table: " + String.valueOf(tableList.get(i).id) + " - Size: " + String.valueOf(tableList.get(i).customerSize) + " - Availability :" + tableAvailability(tableList.get(i).avalabilty));
-                }
-            }
-
         }
         tableAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, tables);
         listTest.setAdapter(tableAdapter);
