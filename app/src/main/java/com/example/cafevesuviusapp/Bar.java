@@ -36,8 +36,6 @@ public class Bar extends AppCompatActivity {
     private String category_url = "http://5.186.68.226:8000/category-list/?format=json";
 
     int drinkId;
-    boolean startup = false;
-    boolean startupDone = false;
 
     ArrayList<MenuItem_Class> menuItems;
     ArrayList<Order_Class> orders;
@@ -201,7 +199,6 @@ public class Bar extends AppCompatActivity {
         orderItems.add(orderItem);
     }
 
-    //TODO
     public void statusLists(){
         String fullOrder = "";
         for (int i = 0; i < orders.size(); i++){
