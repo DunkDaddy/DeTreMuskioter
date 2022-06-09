@@ -44,6 +44,8 @@ public class Order extends AppCompatActivity {
     Button ordering;
     Order_Class newOrder = new Order_Class();
 
+    String order = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +57,15 @@ public class Order extends AppCompatActivity {
         orderMenuItems = new ArrayList<>();
         orderMenu = findViewById(R.id.order_menu);
         ordering = findViewById(R.id.sendOrder);
+        AlertDialog.Builder builder = new AlertDialog.Builder(Order.this);
         ordering.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (newOrder.id == 0)
                 {
                     postOrder(Integer.toString(newOrder.table_Id), Integer.toString(newOrder.status_Id));
+                    builder.setMessage("Do you want to place the order: " + order);
+                    builder.create().show();
                 }
             }
         });
@@ -113,8 +118,9 @@ public class Order extends AppCompatActivity {
         {
             newOrder.dishes.add(orderMenuItems.get(menuItemId));
         }
+        order += orderMenuItems.get(menuItemId).name + " - ";
         AlertDialog.Builder builder = new AlertDialog.Builder(Order.this);
-        builder.setMessage(orderMenuItems.get(menuItemId).name);
+        builder.setMessage(order);
         builder.create().show();
     }
     private void postOrder(String tableID, String statusID) {
