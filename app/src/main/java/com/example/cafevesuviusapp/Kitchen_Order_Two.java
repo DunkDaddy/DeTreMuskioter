@@ -304,9 +304,9 @@ public class Kitchen_Order_Two extends AppCompatActivity {
         ListView awaitingList = (ListView) findViewById(R.id.AwaitingListId);
         ListView workingList = (ListView) findViewById(R.id.WorkingListId);
         ListView receivedList = (ListView) findViewById(R.id.RecievedListId);
-        receiveAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, received);
-        workingAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, preparing);
-        awaitingAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, done);
+        receiveAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, received);
+        workingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, preparing);
+        awaitingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, done);
         awaitingList.setAdapter(awaitingAdapter);
         workingList.setAdapter(workingAdapter);
         receivedList.setAdapter(receiveAdapter);
