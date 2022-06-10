@@ -54,7 +54,7 @@ public class Order extends AppCompatActivity {
         setContentView(R.layout.activity_order);
         newOrder.id = 0;
         newOrder.waiter_Id = 1;
-        newOrder.table_Id = 11;
+        newOrder.table_Id = 6;
         newOrder.status_Id = 1;
         orderMenuItems = new ArrayList<>();
         orderMenu = findViewById(R.id.order_menu);

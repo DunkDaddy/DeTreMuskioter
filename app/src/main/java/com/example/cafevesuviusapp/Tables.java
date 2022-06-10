@@ -79,7 +79,7 @@ public class Tables extends AppCompatActivity {
                 tableList.remove(i);
             }
         }
-        changeList(x);
+        changeList(locationId   );
     }
     public void editTableList(int id, int locationId){
         int x = 0;
